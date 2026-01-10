@@ -84,6 +84,32 @@
         .btn-home:hover {
             text-decoration: underline;
         }
+        
+        /* New Button Style */
+        .btn-support {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .btn-support:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .report-link {
+            display: inline-block;
+            margin-top: 25px;
+            font-size: 0.85rem;
+            color: #888;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -110,6 +136,9 @@
             <p>has successfully completed</p>
             <div class="course-name" id="display-course">Course Name</div>
             <div class="date">Issued by Cyberixa</div>
+            
+            <!-- Report Problem Link -->
+            <a id="report-link" href="#" class="report-link">Report a problem with this certificate</a>
         </div>
 
         <!-- Invalid State -->
@@ -117,6 +146,14 @@
             <i class="fas fa-times-circle status-icon invalid"></i>
             <h1>INVALID CERTIFICATE</h1>
             <p>We could not find this certificate in our records. Please check the QR code or contact support.</p>
+            
+            <!-- Contact Support Button -->
+            <a id="support-btn" href="#" class="btn-support">
+                <i class="fas fa-envelope"></i> Contact Support
+            </a>
+
+            <br><br>
+            <a href="index.html" class="btn-home">Back to Home</a>
         </div>
     </div>
 
@@ -135,12 +172,25 @@
         // 3. Check if name and course exist in the link
         if (name && course) {
             // Decode characters (e.g., %20 becomes space)
-            document.getElementById('display-name').innerText = decodeURIComponent(name);
-            document.getElementById('display-course').innerText = decodeURIComponent(course);
+            const decodedName = decodeURIComponent(name);
+            const decodedCourse = decodeURIComponent(course);
             
+            document.getElementById('display-name').innerText = decodedName;
+            document.getElementById('display-course').innerText = decodedCourse;
+            
+            // Set the email link for Valid certificate
+            const subjectValid = encodeURIComponent("Issue with Certificate: " + decodedName);
+            const bodyValid = encodeURIComponent("Hello Cyberixa,\n\nI have an issue with my certificate.\n\nName: " + decodedName + "\nCourse: " + decodedCourse);
+            document.getElementById('report-link').href = `mailto:cyberixa.eg@gmail.com?subject=${subjectValid}&body=${bodyValid}`;
+
             // Show valid certificate
             document.getElementById('valid-cert').classList.remove('hidden');
         } else {
+            // Set the email link for Invalid certificate
+            const subjectInvalid = encodeURIComponent("Inquiry: Invalid Certificate");
+            const bodyInvalid = encodeURIComponent("Hello Cyberixa,\n\nI scanned a certificate QR code but it showed as Invalid.\n\nPlease check.");
+            document.getElementById('support-btn').href = `mailto:cyberixa.eg@gmail.com?subject=${subjectInvalid}&body=${bodyInvalid}`;
+
             // Show invalid
             document.getElementById('invalid-cert').classList.remove('hidden');
         }
