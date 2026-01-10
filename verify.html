@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Verification | Cyberixa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #004e92;
+            --secondary-color: #00c6ff;
+            --success: #2ecc71;
+            --error: #e74c3c;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            border-top: 5px solid var(--primary-color);
+        }
+        .logo {
+            margin-bottom: 20px;
+        }
+        .logo img {
+            height: 50px;
+        }
+        .status-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        .valid {
+            color: var(--success);
+        }
+        .invalid {
+            color: var(--error);
+        }
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        .student-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 10px 0;
+            color: #333;
+        }
+        .course-name {
+            font-size: 1.1rem;
+            color: #666;
+            background: #eef2f7;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .date {
+            font-size: 0.9rem;
+            color: #999;
+        }
+        .hidden {
+            display: none;
+        }
+        .btn-home {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .btn-home:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="logo">
+            <!-- Replace with your actual logo path if needed, or use text -->
+            <img src="images/logo.png" alt="Cyberixa" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <h2 style="display:none; color:var(--primary-color);">CYBERIXA</h2>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading">
+            <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--primary-color);"></i>
+            <p>Verifying Certificate...</p>
+        </div>
+
+        <!-- Valid Certificate State -->
+        <div id="valid-cert" class="hidden">
+            <i class="fas fa-check-circle status-icon valid"></i>
+            <h1>CERTIFIED</h1>
+            <p>This is to certify that</p>
+            <div class="student-name" id="display-name">Student Name</div>
+            <p>has successfully completed</p>
+            <div class="course-name" id="display-course">Course Name</div>
+            <div class="date">Issued by Cyberixa</div>
+            <a href="index.html" class="btn-home">Back to Home</a>
+        </div>
+
+        <!-- Invalid State -->
+        <div id="invalid-cert" class="hidden">
+            <i class="fas fa-times-circle status-icon invalid"></i>
+            <h1>INVALID CERTIFICATE</h1>
+            <p>We could not find this certificate in our records. Please check the QR code or contact support.</p>
+            <a href="index.html" class="btn-home">Back to Home</a>
+        </div>
+    </div>
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        // 1. Get the URL parameters (the part after ?name=...)
+        const params = new URLSearchParams(window.location.search);
+        const name = params.get('name');
+        const course = params.get('course');
+
+        // 2. Hide loading
+        document.getElementById('loading').style.display = 'none';
+
+        // 3. Check if name and course exist in the link
+        if (name && course) {
+            // Decode characters (e.g., %20 becomes space)
+            document.getElementById('display-name').innerText = decodeURIComponent(name);
+            document.getElementById('display-course').innerText = decodeURIComponent(course);
+            
+            // Show valid certificate
+            document.getElementById('valid-cert').classList.remove('hidden');
+        } else {
+            // Show invalid
+            document.getElementById('invalid-cert').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
