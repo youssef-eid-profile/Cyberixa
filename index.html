@@ -327,7 +327,7 @@
             border-radius: 5px;
         }
 
-        /* --- Gallery Section (New) --- */
+        /* --- Gallery Section --- */
         #gallery {
             padding: 80px 0;
             background-color: #f0f4f8;
@@ -635,6 +635,10 @@
             #hero h1 {
                 font-size: 2rem;
             }
+            
+            .mySlides {
+                height: 300px;
+            }
 
             .ceo-details-grid {
                 grid-template-columns: 1fr;
@@ -649,42 +653,6 @@
             }
         }
     </style>
-
-<script>
-let slideIndex = 1;
-showSlides(slideIndex);
-
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  let i;
-  let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("dot");
-
-  if (n > slides.length) { slideIndex = 1 }
-  if (n < 1) { slideIndex = slides.length }
-
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-    slides[i].classList.remove("active");
-  }
-
-  for (i = 0; i < dots.length; i++) {
-    dots[i].classList.remove("active");
-  }
-
-  slides[slideIndex - 1].style.display = "block";
-  slides[slideIndex - 1].classList.add("active");
-  dots[slideIndex - 1].classList.add("active");
-}
-</script>
-
 
 </head>
 <body>
@@ -704,6 +672,7 @@ function showSlides(n) {
                     <li><a href="#about">About</a></li>
                     <li><a href="#solutions">Solutions</a></li>
                     <li><a href="#tracks">Courses</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
                     <li><a href="#ceo">CEO</a></li>
                     <li><a href="#contact">Contact</a></li>
                     <li><a href="https://forms.gle/Qw2JcrxDw6DB1CRv6" class="btn btn-primary" style="padding: 8px 20px; color: white;">Careers</a></li>
@@ -780,7 +749,7 @@ function showSlides(n) {
                     <h3>Sustainability Consulting</h3>
                     <p>Supporting organizations in integrating sustainable digital transformation strategies and ethical tech practices.</p>
                 </article>
-                <!-- NEW Solution 5 -->
+                <!-- Solution 5 -->
                 <article class="solution-card">
                     <div class="solution-icon"><i class="fas fa-network-wired"></i></div>
                     <h3>Office Network Deployment</h3>
@@ -889,16 +858,17 @@ function showSlides(n) {
             </div>
         </div>
     </section>
+
     <!-- Gallery Section -->
     <section id="gallery">
         <div class="container">
             <h2>Our Gallery</h2>
-            <p style="text-align: center; margin-bottom: 30px; color: #666;">Highlights from our training sessions, workshops, and community events.</p>
+            <p style="text-align: center; margin-bottom: 30px; color: #666;">Highlights from our work.</p>
             
             <div class="slideshow-container" id="slideshow-container">
                 <!-- Slide 1 -->
                 <div class="mySlides fade">
-                    <div class="numbertext">1 / 2</div>
+                    <div class="numbertext">1 / 4</div>
                     <!-- REPLACE WITH YOUR IMAGE PATH: images/your-photo.jpg -->
                     <img src="images/Cyberixa-egyptYouth.png" alt="partnership1">
                     <div class="text">شراكة مع كيان سواعد شباب مصر - وزارة الشباب والرياضة</div>
@@ -906,11 +876,10 @@ function showSlides(n) {
 
                 <!-- Slide 2 -->
                 <div class="mySlides fade">
-                    <div class="numbertext">2 / 2</div>
+                    <div class="numbertext">2 / 4</div>
                     <img src="images/NetAcad.png" alt="partnership2">
                     <div class="text">قريباً... أكاديمية معتمدة دولياً من سيسكو</div>
                 </div>
-
 
                 <!-- Navigation Arrows -->
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -934,7 +903,7 @@ function showSlides(n) {
             <div class="ceo-profile">
                 <!-- CEO Image -->
                 <div class="ceo-image">
-                    <img src="images/CEO-Founder.png" alt="Youssef Eid - CEO & Founder">
+                    <img src="images/CEO-Founder.png" alt="Youssef Eid - CEO & Founder" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=687&auto=format&fit=crop'">
                 </div>
 
                 <!-- CEO Info -->
@@ -1052,25 +1021,72 @@ function showSlides(n) {
             </div>
 
             <div class="copyright">
-                &copy; 2026 Cyberixa. All Rights Reserved. | Empowering the Digital Generation
+                &copy; 2025 Cyberixa. All Rights Reserved. | Empowering the Digital Generation
             </div>
         </div>
     </footer>
 
-    <!-- Simple Script for Mobile Menu -->
+    <!-- SCRIPTS MOVED TO BOTTOM TO FIX GALLERY -->
     <script>
+        // --- Mobile Menu Script ---
         function toggleMenu() {
             const nav = document.querySelector('.nav-links');
             nav.classList.toggle('active');
         }
 
-        // Close menu when clicking a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 const nav = document.querySelector('.nav-links');
                 nav.classList.remove('active');
             });
         });
+
+        // --- Gallery Slideshow Script (Fixed & Auto-Slide) ---
+        let slideIndex = 0;
+        let autoSlideTimeout;
+        showSlides();
+
+        function plusSlides(n) {
+            clearTimeout(autoSlideTimeout); // Stop timer when user clicks
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            clearTimeout(autoSlideTimeout);
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            
+            if (n === undefined) {
+                slideIndex++;
+            }
+            
+            if (n !== undefined && slides[slideIndex-1].style.display === "block") {
+                // Logic to handle fast clicks
+            }
+
+            if (slideIndex > slides.length) {slideIndex = 1}    
+            if (slideIndex < 1) {slideIndex = slides.length}
+
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+                slides[i].classList.remove("active");
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            
+            slides[slideIndex-1].style.display = "block";  
+            slides[slideIndex-1].classList.add("active");
+            dots[slideIndex-1].className += " active";
+            
+            // Auto Move every 3 seconds
+            autoSlideTimeout = setTimeout(showSlides, 3000); 
+        }
     </script>
 </body>
 </html>
