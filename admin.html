@@ -8,7 +8,30 @@
     <style>
         body { font-family: 'Inter', sans-serif; background: #f4f7f6; margin: 0; padding: 20px; color: #333; }
         .container { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        h1 { color: #004e92; display: flex; justify-content: space-between; align-items: center; }
+        
+        /* Header Styles */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .header-left img {
+            height: 40px;
+        }
+        .header-left h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #004e92;
+        }
+
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
         th { background-color: #f8f9fa; }
@@ -24,7 +47,9 @@
         
         /* Login Modal */
         #loginOverlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:flex; justify-content:center; align-items:center; z-index:100; }
-        .login-box { background: white; padding: 40px; border-radius: 10px; text-align: center; width: 300px; }
+        .login-box { background: white; padding: 40px; border-radius: 10px; text-align: center; width: 350px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .login-box img { margin-bottom: 20px; }
+        .login-box h2 { margin: 0 0 10px 0; color: #333; }
         .hidden { display: none !important; }
     </style>
 </head>
@@ -33,24 +58,31 @@
     <!-- Login Screen -->
     <div id="loginOverlay">
         <div class="login-box">
+            <!-- Logo Added Here -->
+            <img src="images/logo.png" alt="Cyberixa Logo" style="height: 50px;" onerror="this.style.display='none'">
             <h2>Admin Login</h2>
-            <p style="color: #666; font-size: 0.9rem;">Enter Admin Password</p>
-            <input type="password" id="passwordInput" placeholder="Password" style="width: 100%; margin-bottom: 10px;">
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">Enter Admin Password</p>
+            <input type="password" id="passwordInput" placeholder="Password" style="width: 100%; margin-bottom: 10px;" onkeydown="if(event.key==='Enter') login()">
             <button onclick="login()" class="btn btn-primary" style="width: 100%;">Login</button>
-            <p id="loginError" style="color:red; font-size:0.8rem; display:none;">Incorrect Password</p>
+            <p id="loginError" style="color:red; font-size:0.8rem; margin-top:10px; display:none;">Incorrect Password</p>
         </div>
     </div>
 
     <!-- Main Dashboard -->
     <div id="dashboard" class="container hidden">
-        <h1>
-            Manage Certificates
+        
+        <!-- Header with Logo -->
+        <div class="page-header">
+            <div class="header-left">
+                <img src="images/logo.png" alt="Cyberixa" onerror="this.style.display='none'">
+                <h1>Manage Certificates</h1>
+            </div>
             <button onclick="logout()" class="btn btn-danger" style="font-size: 0.8rem;"><i class="fas fa-sign-out-alt"></i> Logout</button>
-        </h1>
+        </div>
 
         <!-- Add New Form -->
         <div style="background: #f9fbfd; padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #e1e4e8;">
-            <h3>Add New Student</h3>
+            <h3 style="margin-top:0;"><i class="fas fa-plus-circle" style="color: var(--primary-color);"></i> Add New Student</h3>
             <div class="form-row">
                 <input type="text" id="newId" placeholder="Cert ID (e.g., CYB-2026-003)">
                 <input type="text" id="newName" placeholder="Student Name">
@@ -63,6 +95,7 @@
         </div>
 
         <!-- Table List -->
+        <h3><i class="fas fa-list"></i> Issued Certificates</h3>
         <table id="certTable">
             <thead>
                 <tr>
@@ -70,7 +103,7 @@
                     <th>Name</th>
                     <th>Course</th>
                     <th>Date</th>
-                    <th>Action</th>
+                    <th style="width: 100px;">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -114,10 +147,15 @@
             const tbody = document.querySelector('#certTable tbody');
             tbody.innerHTML = '';
             
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#999;">No certificates found.</td></tr>';
+                return;
+            }
+
             data.forEach(cert => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${cert.id}</td>
+                    <td><strong>${cert.id}</strong></td>
                     <td>${cert.name}</td>
                     <td>${cert.course}</td>
                     <td>${cert.date}</td>
@@ -145,14 +183,15 @@
             });
 
             if (res.ok) {
-                alert("Certificate Added!");
+                alert("Certificate Added Successfully!");
                 loadData(); // Refresh list
                 // Clear form
                 document.getElementById('newId').value = '';
                 document.getElementById('newName').value = '';
                 document.getElementById('newCourse').value = '';
+                document.getElementById('newDate').value = '';
             } else {
-                alert("Error adding certificate");
+                alert("Error adding certificate. Check console.");
             }
         }
 
