@@ -42,12 +42,8 @@
             font-size: 4rem;
             margin-bottom: 20px;
         }
-        .valid {
-            color: var(--success);
-        }
-        .invalid {
-            color: var(--error);
-        }
+        .valid { color: var(--success); }
+        .invalid { color: var(--error); }
         h1 {
             color: var(--primary-color);
             margin-bottom: 10px;
@@ -71,9 +67,7 @@
             font-size: 0.9rem;
             color: #999;
         }
-        .hidden {
-            display: none;
-        }
+        .hidden { display: none; }
         .btn-home {
             display: inline-block;
             margin-top: 20px;
@@ -81,11 +75,7 @@
             text-decoration: none;
             font-weight: 600;
         }
-        .btn-home:hover {
-            text-decoration: underline;
-        }
-        
-        /* Button Styles */
+        .btn-home:hover { text-decoration: underline; }
         .btn-support {
             display: inline-flex;
             align-items: center;
@@ -99,10 +89,7 @@
             font-weight: 600;
             transition: background 0.3s;
         }
-        .btn-support:hover {
-            background-color: var(--secondary-color);
-        }
-
+        .btn-support:hover { background-color: var(--secondary-color); }
         .report-link {
             display: inline-block;
             margin-top: 25px;
@@ -116,8 +103,7 @@
 
     <div class="card">
         <div class="logo">
-            <img src="images/logo.png" alt="Cyberixa" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-            <h2 style="display:none; color:var(--primary-color);">CYBERIXA</h2>
+            <img src="images/logo.png" alt="Cyberixa" onerror="this.style.display='none'">
         </div>
 
         <!-- Loading State -->
@@ -134,28 +120,27 @@
             <div class="student-name" id="display-name">Student Name</div>
             <p>has successfully completed</p>
             <div class="course-name" id="display-course">Course Name</div>
-            <div class="date">Issued by Cyberixa</div>
+            <div class="date" id="display-date">Issued by Cyberixa</div>
             
-            <!-- Report Problem Link -->
             <a id="report-link" href="#" class="report-link">Report a problem with this certificate</a>
         </div>
 
-        <!-- Invalid State (Shown only if parameters exist but are empty/wrong) -->
+        <!-- Invalid State -->
         <div id="invalid-cert" class="hidden">
             <i class="fas fa-times-circle status-icon invalid"></i>
             <h1>INVALID CERTIFICATE</h1>
-            <p>We could not find this certificate in our records. Please check the QR code or contact support.</p>
+            <p>We could not find this certificate in our records. Please check the ID or contact support.</p>
             
             <a id="support-btn" href="#" class="btn-support">
                 <i class="fas fa-envelope"></i> Contact Support
             </a>
         </div>
 
-        <!-- No Input State (Shown if user visits verify.html directly) -->
+        <!-- No Input State -->
         <div id="no-input" class="hidden">
             <i class="fas fa-qrcode" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 20px;"></i>
             <h1>Verify Certificate</h1>
-            <p>Please scan the QR code on your certificate to verify its authenticity.</p>
+            <p>Please scan the QR code or use the link provided on your certificate.</p>
         </div>
     </div>
 
@@ -163,42 +148,77 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
-        // 1. Get parameters
+        // CONFIGURATION
+        // Replace this with your actual deployed API URL (e.g., from Vercel)
+        // If testing locally with Vercel CLI, it might be http://localhost:3000/api/verify
+        const API_ENDPOINT = '/api/verify'; 
+
         const params = new URLSearchParams(window.location.search);
-        const name = params.get('name');
-        const course = params.get('course');
-        const hasParams = window.location.search.length > 0; // Checks if ? exists in URL
+        const certId = params.get('id'); // We now look for ?id=UNIQUE_ID
+        const hasParams = window.location.search.length > 0;
 
-        // 2. Hide loading
-        document.getElementById('loading').style.display = 'none';
+        // Elements
+        const loadingEl = document.getElementById('loading');
+        const validEl = document.getElementById('valid-cert');
+        const invalidEl = document.getElementById('invalid-cert');
+        const noInputEl = document.getElementById('no-input');
 
-        // 3. Logic to decide which state to show
-        if (name && course) {
-            // --- VALID ---
-            const decodedName = decodeURIComponent(name);
-            const decodedCourse = decodeURIComponent(course);
-            
-            document.getElementById('display-name').innerText = decodedName;
-            document.getElementById('display-course').innerText = decodedCourse;
-            
-            const subjectValid = encodeURIComponent("Issue with Certificate: " + decodedName);
-            const bodyValid = encodeURIComponent("Hello Cyberixa,\n\nI have an issue with my certificate.\n\nName: " + decodedName + "\nCourse: " + decodedCourse);
-            document.getElementById('report-link').href = `mailto:cyberixa.eg@gmail.com?subject=${subjectValid}&body=${bodyValid}`;
+        async function verifyCertificate() {
+            if (!certId) {
+                loadingEl.style.display = 'none';
+                if (hasParams) {
+                    invalidEl.classList.remove('hidden');
+                } else {
+                    noInputEl.classList.remove('hidden');
+                }
+                return;
+            }
 
-            document.getElementById('valid-cert').classList.remove('hidden');
-        } 
-        else if (hasParams) {
-            // --- INVALID (Params exist but are empty/wrong) ---
-            const subjectInvalid = encodeURIComponent("Inquiry: Invalid Certificate");
-            const bodyInvalid = encodeURIComponent("Hello Cyberixa,\n\nI scanned a certificate QR code but it showed as Invalid.\n\nPlease check.");
-            document.getElementById('support-btn').href = `mailto:cyberixa.eg@gmail.com?subject=${subjectInvalid}&body=${bodyInvalid}`;
+            try {
+                // Call your Backend API
+                const response = await fetch(`${API_ENDPOINT}?id=${encodeURIComponent(certId)}`);
+                const result = await response.json();
 
-            document.getElementById('invalid-cert').classList.remove('hidden');
-        } 
-        else {
-            // --- NO INPUT (Direct visit) ---
-            document.getElementById('no-input').classList.remove('hidden');
+                loadingEl.style.display = 'none';
+
+                if (response.ok && result.valid) {
+                    // SUCCESS: Update UI with real data from DB
+                    document.getElementById('display-name').innerText = result.name;
+                    document.getElementById('display-course').innerText = result.course;
+                    
+                    if(result.date) {
+                        document.getElementById('display-date').innerText = `Issued: ${result.date} | Cyberixa`;
+                    }
+
+                    // Setup Report Link
+                    const subject = encodeURIComponent("Issue with Certificate: " + result.name);
+                    const body = encodeURIComponent(`ID: ${certId}\nName: ${result.name}\nCourse: ${result.course}`);
+                    document.getElementById('report-link').href = `mailto:cyberixa.eg@gmail.com?subject=${subject}&body=${body}`;
+
+                    validEl.classList.remove('hidden');
+                } else {
+                    // FAILED: Not in DB
+                    invalidEl.classList.remove('hidden');
+                    setupSupportEmail();
+                }
+
+            } catch (error) {
+                console.error("Verification Error:", error);
+                loadingEl.style.display = 'none';
+                invalidEl.classList.remove('hidden');
+                document.querySelector('#invalid-cert p').innerText = "Connection error. Please try again later.";
+                setupSupportEmail();
+            }
         }
+
+        function setupSupportEmail() {
+            const subject = encodeURIComponent("Inquiry: Invalid Certificate");
+            const body = encodeURIComponent(`I tried to verify certificate ID: ${certId}`);
+            document.getElementById('support-btn').href = `mailto:cyberixa.eg@gmail.com?subject=${subject}&body=${body}`;
+        }
+
+        // Run
+        verifyCertificate();
     </script>
 </body>
 </html>
