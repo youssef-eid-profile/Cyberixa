@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificate Verification | Cyberixa</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <title>التحقق من الشهادة | Cyberixa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #004e92;
@@ -13,7 +13,7 @@
             --error: #e74c3c;
         }
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Alexandria', sans-serif;
             background-color: #f0f2f5;
             display: flex;
             justify-content: center;
@@ -34,11 +34,11 @@
             position: relative;
         }
         
-        /* Language Switcher */
+        /* Language Switcher (Left for RTL) */
         .lang-switch {
             position: absolute;
             top: 15px;
-            right: 15px;
+            left: 15px;
             background: #f0f2f5;
             padding: 5px 12px;
             border-radius: 20px;
@@ -54,12 +54,8 @@
             color: white;
         }
 
-        .logo {
-            margin-bottom: 20px;
-        }
-        .logo img {
-            height: 50px;
-        }
+        .logo { margin-bottom: 20px; }
+        .logo img { height: 50px; }
         .logo-fallback {
             display: none;
             font-family: 'Orbitron', sans-serif;
@@ -68,22 +64,11 @@
             color: var(--primary-color);
             letter-spacing: 1px;
         }
-        .status-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-        }
+        .status-icon { font-size: 4rem; margin-bottom: 20px; }
         .valid { color: var(--success); }
         .invalid { color: var(--error); }
-        h1 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-        .student-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 10px 0;
-            color: #333;
-        }
+        h1 { color: var(--primary-color); margin-bottom: 10px; }
+        .student-name { font-size: 1.5rem; font-weight: 700; margin: 10px 0; color: #333; }
         .course-name {
             font-size: 1.1rem;
             color: #666;
@@ -93,10 +78,7 @@
             display: inline-block;
             margin-bottom: 20px;
         }
-        .date {
-            font-size: 0.9rem;
-            color: #999;
-        }
+        .date { font-size: 0.9rem; color: #999; }
         .hidden { display: none; }
         
         .btn-action {
@@ -130,9 +112,7 @@
             text-decoration: underline;
         }
 
-        .input-group {
-            margin-top: 20px;
-        }
+        .input-group { margin-top: 20px; }
         .input-field {
             width: 100%;
             padding: 12px;
@@ -144,10 +124,7 @@
             transition: border-color 0.3s;
             box-sizing: border-box;
         }
-        .input-field:focus {
-            border-color: var(--primary-color);
-            outline: none;
-        }
+        .input-field:focus { border-color: var(--primary-color); outline: none; }
 
         #reader {
             width: 100%;
@@ -161,7 +138,7 @@
 
     <div class="card">
         <!-- Language Switcher -->
-        <a id="lang-link" href="verify-ar.html" class="lang-switch">العربية</a>
+        <a id="lang-link" href="verify.html" class="lang-switch">English</a>
 
         <div class="logo">
             <img src="images/logo.png" alt="Cyberixa Logo" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
@@ -170,51 +147,51 @@
 
         <div id="loading">
             <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--primary-color);"></i>
-            <p>Verifying Certificate...</p>
+            <p>جارٍ التحقق من الشهادة...</p>
         </div>
 
         <div id="valid-cert" class="hidden">
             <i class="fas fa-check-circle status-icon valid"></i>
-            <h1>CERTIFIED</h1>
-            <p>This is to certify that</p>
-            <div class="student-name" id="display-name">Student Name</div>
-            <p>has successfully completed</p>
-            <div class="course-name" id="display-course">Course Name</div>
-            <div class="date" id="display-date">Issued by Cyberixa</div>
-            <a id="report-link" href="#" class="report-link">Report a problem with this certificate</a>
+            <h1>شهادة معتمدة</h1>
+            <p>تشهد الشركة بأن</p>
+            <div class="student-name" id="display-name">اسم الطالب</div>
+            <p>قد أتم بنجاح</p>
+            <div class="course-name" id="display-course">اسم الدورة</div>
+            <div class="date" id="display-date">صادرة من Cyberixa</div>
+            <a id="report-link" href="#" class="report-link">الإبلاغ عن مشكلة في هذه الشهادة</a>
         </div>
 
         <div id="invalid-cert" class="hidden">
             <i class="fas fa-times-circle status-icon invalid"></i>
-            <h1>INVALID CERTIFICATE</h1>
-            <p>We could not find this certificate in our records. Please check the ID or contact support.</p>
+            <h1>شهادة غير صالحة</h1>
+            <p>لم نتمكن من العثور على هذه الشهادة في سجلاتنا. يرجى التحقق من الرقم أو الاتصال بالدعم.</p>
             <a id="support-btn" href="#" class="btn-action btn-danger">
-                <i class="fas fa-envelope"></i> Contact Support
+                <i class="fas fa-envelope"></i> تواصل مع الدعم
             </a>
         </div>
 
         <div id="no-input" class="hidden">
             <i class="fas fa-certificate" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 20px;"></i>
-            <h1>Verify Certificate</h1>
-            <p>Enter the ID below or scan the QR code.</p>
+            <h1>التحقق من الشهادة</h1>
+            <p>أدخل الرقم التعريفي أدناه أو قم بمسح رمز QR.</p>
             
             <div class="input-group">
-                <input type="text" id="input-cert-id" class="input-field" placeholder="e.g., CYB-2026-0985">
+                <input type="text" id="input-cert-id" class="input-field" placeholder="مثال: CYB-2026-0985">
                 <button onclick="handleManualVerify()" class="btn-action">
-                    <i class="fas fa-search"></i> Verify ID
+                    <i class="fas fa-search"></i> تحقق
                 </button>
                 <button onclick="startScanner()" class="btn-action btn-secondary" style="margin-top: 10px;">
-                    <i class="fas fa-qrcode"></i> Scan QR Code
+                    <i class="fas fa-qrcode"></i> مسح رمز QR
                 </button>
             </div>
         </div>
 
         <div id="scanner-section" class="hidden">
-            <h1>Scanning...</h1>
-            <p>Point your camera at the certificate QR code.</p>
+            <h1>جارٍ المسح...</h1>
+            <p>وجه الكاميرا نحو رمز الاستجابة السريعة على الشهادة.</p>
             <div id="reader"></div>
             <button onclick="stopScanner()" class="btn-action btn-danger" style="margin-top: 15px;">
-                <i class="fas fa-times"></i> Cancel Scan
+                <i class="fas fa-times"></i> إلغاء المسح
             </button>
         </div>
     </div>
@@ -245,13 +222,13 @@
         }
         
         // Update lang switch to keep ID
-        document.getElementById('lang-link').href = `verify-ar.html${window.location.search}`;
+        document.getElementById('lang-link').href = `verify.html${window.location.search}`;
 
         // 2. Manual Verification
         function handleManualVerify() {
             const inputId = document.getElementById('input-cert-id').value.trim();
-            if (!inputId) { alert("Please enter a Certificate ID"); return; }
-            window.history.replaceState({}, '', `verify.html?id=${inputId}`);
+            if (!inputId) { alert("يرجى إدخال رقم الشهادة"); return; }
+            window.history.replaceState({}, '', `verify-ar.html?id=${inputId}`);
             noInputEl.classList.add('hidden');
             loadingEl.style.display = 'block';
             verifyCertificate(inputId);
@@ -268,7 +245,7 @@
             html5QrCode = new Html5Qrcode("reader");
             const config = { fps: 10, qrbox: { width: 250, height: 250 } };
             html5QrCode.start({ facingMode: "environment" }, config, onScanSuccess, onScanFailure)
-                .catch((err) => { alert("Could not access camera."); stopScanner(); });
+                .catch((err) => { alert("تعذر الوصول إلى الكاميرا."); stopScanner(); });
         }
 
         function stopScanner() {
@@ -285,7 +262,7 @@
                     try { idToVerify = new URL(decodedText).searchParams.get("id"); } catch (e) {}
                 }
                 loadingEl.style.display = 'block';
-                window.history.replaceState({}, '', `verify.html?id=${idToVerify}`);
+                window.history.replaceState({}, '', `verify-ar.html?id=${idToVerify}`);
                 verifyCertificate(idToVerify);
             });
         }
@@ -302,10 +279,10 @@
                 if (response.ok && result.valid) {
                     document.getElementById('display-name').innerText = result.name;
                     document.getElementById('display-course').innerText = result.course;
-                    if(result.date) document.getElementById('display-date').innerText = `Issued: ${result.date} | Cyberixa`;
+                    if(result.date) document.getElementById('display-date').innerText = `تاريخ الإصدار: ${result.date} | Cyberixa`;
                     
-                    const subject = encodeURIComponent("Issue with Certificate: " + result.name);
-                    const body = encodeURIComponent(`ID: ${idToVerify}\nName: ${result.name}`);
+                    const subject = encodeURIComponent("مشكلة في الشهادة: " + result.name);
+                    const body = encodeURIComponent(`الرقم: ${idToVerify}\nالاسم: ${result.name}`);
                     document.getElementById('report-link').href = `mailto:cyberixa.eg@gmail.com?subject=${subject}&body=${body}`;
                     validEl.classList.remove('hidden');
                 } else {
@@ -313,14 +290,14 @@
                 }
             } catch (error) {
                 loadingEl.style.display = 'none'; invalidEl.classList.remove('hidden');
-                document.querySelector('#invalid-cert p').innerText = "Connection error. Please try again later.";
+                document.querySelector('#invalid-cert p').innerText = "خطأ في الاتصال. يرجى المحاولة لاحقاً.";
                 setupSupportEmail(idToVerify);
             }
         }
 
         function setupSupportEmail(id) {
-            const subject = encodeURIComponent("Inquiry: Invalid Certificate");
-            const body = encodeURIComponent(`I tried to verify ID: ${id}`);
+            const subject = encodeURIComponent("استفسار: شهادة غير صالحة");
+            const body = encodeURIComponent(`حاولت التحقق من الرقم: ${id}`);
             document.getElementById('support-btn').href = `mailto:cyberixa.eg@gmail.com?subject=${subject}&body=${body}`;
         }
     </script>
