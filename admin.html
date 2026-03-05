@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard | Cyberixa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #f4f7f6; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h1 { color: #004e92; display: flex; justify-content: space-between; align-items: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background-color: #f8f9fa; }
+        .btn { padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; transition: 0.2s; }
+        .btn-danger { background: #e74c3c; color: white; }
+        .btn-primary { background: #004e92; color: white; }
+        .btn-success { background: #2ecc71; color: white; }
+        .btn:hover { opacity: 0.9; }
+        
+        /* Form Styles */
+        .form-row { display: flex; gap: 10px; margin-bottom: 15px; }
+        input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        
+        /* Login Modal */
+        #loginOverlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:flex; justify-content:center; align-items:center; z-index:100; }
+        .login-box { background: white; padding: 40px; border-radius: 10px; text-align: center; width: 300px; }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <!-- Login Screen -->
+    <div id="loginOverlay">
+        <div class="login-box">
+            <h2>Admin Login</h2>
+            <p style="color: #666; font-size: 0.9rem;">Enter Admin Password</p>
+            <input type="password" id="passwordInput" placeholder="Password" style="width: 100%; margin-bottom: 10px;">
+            <button onclick="login()" class="btn btn-primary" style="width: 100%;">Login</button>
+            <p id="loginError" style="color:red; font-size:0.8rem; display:none;">Incorrect Password</p>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="container hidden">
+        <h1>
+            Manage Certificates
+            <button onclick="logout()" class="btn btn-danger" style="font-size: 0.8rem;"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </h1>
+
+        <!-- Add New Form -->
+        <div style="background: #f9fbfd; padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #e1e4e8;">
+            <h3>Add New Student</h3>
+            <div class="form-row">
+                <input type="text" id="newId" placeholder="Cert ID (e.g., CYB-2026-003)">
+                <input type="text" id="newName" placeholder="Student Name">
+            </div>
+            <div class="form-row">
+                <input type="text" id="newCourse" placeholder="Course Name">
+                <input type="date" id="newDate">
+            </div>
+            <button onclick="addCertificate()" class="btn btn-success"><i class="fas fa-plus"></i> Add Certificate</button>
+        </div>
+
+        <!-- Table List -->
+        <table id="certTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Course</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data loads here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const API = '/api/manage';
+        let token = ''; // Stores the password
+
+        // --- AUTH FUNCTIONS ---
+        async function login() {
+            token = document.getElementById('passwordInput').value;
+            // Test if token works by trying to fetch data
+            try {
+                const res = await fetch(API, { headers: { 'Authorization': `Bearer ${token}` }});
+                if (res.ok) {
+                    document.getElementById('loginOverlay').style.display = 'none';
+                    document.getElementById('dashboard').classList.remove('hidden');
+                    loadData();
+                } else {
+                    document.getElementById('loginError').style.display = 'block';
+                }
+            } catch (e) {
+                alert("Connection error");
+            }
+        }
+
+        function logout() {
+            token = '';
+            location.reload();
+        }
+
+        // --- DATA FUNCTIONS ---
+        async function loadData() {
+            const res = await fetch(API, { headers: { 'Authorization': `Bearer ${token}` }});
+            const data = await res.json();
+            
+            const tbody = document.querySelector('#certTable tbody');
+            tbody.innerHTML = '';
+            
+            data.forEach(cert => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${cert.id}</td>
+                    <td>${cert.name}</td>
+                    <td>${cert.course}</td>
+                    <td>${cert.date}</td>
+                    <td><button onclick="deleteCert('${cert.id}')" class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;"><i class="fas fa-trash"></i></button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        async function addCertificate() {
+            const id = document.getElementById('newId').value.trim();
+            const name = document.getElementById('newName').value.trim();
+            const course = document.getElementById('newCourse').value.trim();
+            const date = document.getElementById('newDate').value;
+
+            if(!id || !name || !course) return alert("Please fill ID, Name, and Course");
+
+            const res = await fetch(API, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ id, name, course, date })
+            });
+
+            if (res.ok) {
+                alert("Certificate Added!");
+                loadData(); // Refresh list
+                // Clear form
+                document.getElementById('newId').value = '';
+                document.getElementById('newName').value = '';
+                document.getElementById('newCourse').value = '';
+            } else {
+                alert("Error adding certificate");
+            }
+        }
+
+        async function deleteCert(id) {
+            if(!confirm("Are you sure you want to delete " + id + "?")) return;
+
+            const res = await fetch(API, {
+                method: 'DELETE',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ id })
+            });
+
+            if (res.ok) {
+                loadData();
+            } else {
+                alert("Error deleting");
+            }
+        }
+    </script>
+</body>
+</html>
