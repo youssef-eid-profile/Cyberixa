@@ -1,10 +1,12 @@
 // api/manage.js
-import { Redis } from '@upstash/redis';
-
+import { Redis } from '@upstash/redis'
 const redis = new Redis({
-    url: process.env.UPSTASH_REDIS_REST_URL,
-    token: process.env.UPSTASH_REDIS_REST_TOKEN,
-});
+  url: 'https://model-sponge-58888.upstash.io',
+  token: 'AeYIAAIncDI3YTg4NTQ0NTdkZGE0NmNmODg3OTk5ZGU3OTAwNTdkNHAyNTg4ODg',
+})
+
+await redis.set("foo", "bar");
+await redis.get("foo");
 
 export default async function handler(req, res) {
     // 1. Security Check
