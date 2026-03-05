@@ -84,12 +84,15 @@
             font-weight: 600;
         }
         .btn-home:hover { text-decoration: underline; }
-        .btn-support {
+        
+        .btn-action {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            margin-top: 20px;
-            padding: 10px 20px;
+            width: 100%;
+            margin-top: 10px;
+            padding: 12px 20px;
             background-color: var(--primary-color);
             color: white;
             text-decoration: none;
@@ -98,10 +101,20 @@
             transition: background 0.3s;
             border: none;
             cursor: pointer;
-            width: 100%; /* Full width for verify button */
-            justify-content: center;
         }
-        .btn-support:hover { background-color: var(--secondary-color); }
+        .btn-action:hover { background-color: var(--secondary-color); }
+        
+        /* Secondary style for Scan/Cancel buttons */
+        .btn-secondary {
+            background-color: #333;
+        }
+        .btn-secondary:hover {
+            background-color: #555;
+        }
+        .btn-danger {
+            background-color: var(--error);
+        }
+
         .report-link {
             display: inline-block;
             margin-top: 25px;
@@ -110,7 +123,7 @@
             text-decoration: underline;
         }
 
-        /* Input Styles for Manual Verification */
+        /* Input Styles */
         .input-group {
             margin-top: 20px;
         }
@@ -123,10 +136,23 @@
             text-align: center;
             margin-bottom: 10px;
             transition: border-color 0.3s;
+            box-sizing: border-box; /* Fixes padding issue */
         }
         .input-field:focus {
             border-color: var(--primary-color);
             outline: none;
+        }
+
+        /* QR Scanner Styles */
+        #reader {
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        /* Fix for library container padding */
+        #reader video { 
+            border-radius: 10px; 
         }
     </style>
 </head>
@@ -135,7 +161,6 @@
     <div class="card">
         <!-- Logo Section -->
         <div class="logo">
-            <!-- Displays Image. If missing, displays Text Fallback -->
             <img src="images/logo.png" alt="Cyberixa Logo" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
             <div id="logo-fallback" class="logo-fallback">CYBERIXA</div>
         </div>
@@ -165,7 +190,7 @@
             <h1>INVALID CERTIFICATE</h1>
             <p>We could not find this certificate in our records. Please check the ID or contact support.</p>
             
-            <a id="support-btn" href="#" class="btn-support">
+            <a id="support-btn" href="#" class="btn-action btn-danger">
                 <i class="fas fa-envelope"></i> Contact Support
             </a>
         </div>
@@ -174,70 +199,142 @@
         <div id="no-input" class="hidden">
             <i class="fas fa-certificate" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 20px;"></i>
             <h1>Verify Certificate</h1>
-            <p>Enter the Certificate ID below to verify its authenticity.</p>
+            <p>Enter the ID below or scan the QR code.</p>
             
             <div class="input-group">
                 <input type="text" id="input-cert-id" class="input-field" placeholder="e.g., CYB-2026-0985">
-                <button onclick="handleManualVerify()" class="btn-support">
-                    <i class="fas fa-search"></i> Verify
+                <button onclick="handleManualVerify()" class="btn-action">
+                    <i class="fas fa-search"></i> Verify ID
+                </button>
+                
+                <!-- Scan Button -->
+                <button onclick="startScanner()" class="btn-action btn-secondary" style="margin-top: 10px;">
+                    <i class="fas fa-qrcode"></i> Scan QR Code
                 </button>
             </div>
+        </div>
+
+        <!-- Scanner Section (Hidden by default) -->
+        <div id="scanner-section" class="hidden">
+            <h1>Scanning...</h1>
+            <p>Point your camera at the certificate QR code.</p>
+            <div id="reader"></div>
+            <button onclick="stopScanner()" class="btn-action btn-danger" style="margin-top: 15px;">
+                <i class="fas fa-times"></i> Cancel Scan
+            </button>
         </div>
     </div>
 
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- QR Code Scanner Library -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
     <script>
         const API_ENDPOINT = '/api/verify'; 
 
         const params = new URLSearchParams(window.location.search);
-        const urlId = params.get('id'); // Check if ID is in URL
+        const urlId = params.get('id'); 
 
         // Elements
         const loadingEl = document.getElementById('loading');
         const validEl = document.getElementById('valid-cert');
         const invalidEl = document.getElementById('invalid-cert');
         const noInputEl = document.getElementById('no-input');
+        const scannerEl = document.getElementById('scanner-section');
 
-        // 1. On Load: Check if we have an ID to verify
+        let html5QrCode; // Scanner instance
+
+        // 1. On Load Logic
         if (urlId) {
-            // If ID is in URL, verify immediately
             verifyCertificate(urlId);
         } else {
-            // If no ID, show the search input
             loadingEl.style.display = 'none';
             noInputEl.classList.remove('hidden');
         }
 
-        // 2. Function to handle manual verification from input
+        // 2. Manual Verification
         function handleManualVerify() {
             const inputId = document.getElementById('input-cert-id').value.trim();
             if (!inputId) {
                 alert("Please enter a Certificate ID");
                 return;
             }
-            
-            // Optional: Update URL so user can refresh
             window.history.replaceState({}, '', `verify.html?id=${inputId}`);
-            
-            // Show loading and verify
             noInputEl.classList.add('hidden');
             loadingEl.style.display = 'block';
-            
             verifyCertificate(inputId);
         }
 
-        // Allow pressing "Enter" in the input box
+        // Allow "Enter" key
         document.getElementById('input-cert-id').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                handleManualVerify();
-            }
+            if (e.key === 'Enter') handleManualVerify();
         });
 
-        // 3. Main Verification Logic
+        // 3. QR Scanner Logic
+        function startScanner() {
+            noInputEl.classList.add('hidden');
+            scannerEl.classList.remove('hidden');
+
+            html5QrCode = new Html5Qrcode("reader");
+            
+            // Prefer back camera on mobile
+            const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+            
+            html5QrCode.start({ facingMode: "environment" }, config, onScanSuccess, onScanFailure)
+                .catch((err) => {
+                    console.error("Camera Error:", err);
+                    alert("Could not access camera. Please check permissions.");
+                    stopScanner();
+                });
+        }
+
+        function stopScanner() {
+            if (html5QrCode && html5QrCode.isScanning) {
+                html5QrCode.stop().then(() => {
+                    scannerEl.classList.add('hidden');
+                    noInputEl.classList.remove('hidden');
+                }).catch((err) => console.error("Stop Error:", err));
+            } else {
+                scannerEl.classList.add('hidden');
+                noInputEl.classList.remove('hidden');
+            }
+        }
+
+        function onScanSuccess(decodedText, decodedResult) {
+            // Stop scanning
+            html5QrCode.stop().then(() => {
+                scannerEl.classList.add('hidden');
+                
+                // Logic: Check if scanned text is URL or just ID
+                let idToVerify = decodedText;
+
+                // If it looks like a URL with 'id=' param
+                if (decodedText.includes("id=")) {
+                    try {
+                        const url = new URL(decodedText);
+                        const idParam = url.searchParams.get("id");
+                        if (idParam) idToVerify = idParam;
+                    } catch (e) {
+                        // If URL parsing fails, fallback to raw text
+                        console.log("Not a valid URL, trying raw text");
+                    }
+                }
+
+                // Update UI
+                loadingEl.style.display = 'block';
+                window.history.replaceState({}, '', `verify.html?id=${idToVerify}`);
+                verifyCertificate(idToVerify);
+
+            }).catch(err => console.error(err));
+        }
+
+        function onScanFailure(error) {
+            // Ignore frequent scan errors (no code found)
+        }
+
+        // 4. Main Verification Logic
         async function verifyCertificate(idToVerify) {
-            // Reset states
             validEl.classList.add('hidden');
             invalidEl.classList.add('hidden');
             loadingEl.style.display = 'block';
@@ -249,7 +346,6 @@
                 loadingEl.style.display = 'none';
 
                 if (response.ok && result.valid) {
-                    // SUCCESS
                     document.getElementById('display-name').innerText = result.name;
                     document.getElementById('display-course').innerText = result.course;
                     
@@ -263,7 +359,6 @@
 
                     validEl.classList.remove('hidden');
                 } else {
-                    // FAILED
                     invalidEl.classList.remove('hidden');
                     setupSupportEmail(idToVerify);
                 }
