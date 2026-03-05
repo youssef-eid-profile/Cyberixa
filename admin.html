@@ -130,11 +130,38 @@
         const API = '/api/manage';
         let token = ''; 
 
+        // --- 1. CHECK SESSION ON LOAD ---
+        // This runs automatically when the page opens
+        window.onload = async function() {
+            const savedToken = sessionStorage.getItem('adminToken');
+            if (savedToken) {
+                token = savedToken;
+                // Verify if the saved token is still valid
+                try {
+                    const res = await fetch(API, { headers: { 'Authorization': `Bearer ${token}` }});
+                    if (res.ok) {
+                        // Valid token: show dashboard
+                        document.getElementById('loginOverlay').style.display = 'none';
+                        document.getElementById('dashboard').classList.remove('hidden');
+                        generateId(); 
+                        loadData();
+                    } else {
+                        // Invalid token: clear storage
+                        sessionStorage.removeItem('adminToken');
+                    }
+                } catch (e) { console.error("Session check failed", e); }
+            }
+        };
+
+        // --- AUTH FUNCTIONS ---
         async function login() {
             token = document.getElementById('passwordInput').value;
             try {
                 const res = await fetch(API, { headers: { 'Authorization': `Bearer ${token}` }});
                 if (res.ok) {
+                    // SUCCESS: Save token to browser session
+                    sessionStorage.setItem('adminToken', token);
+                    
                     document.getElementById('loginOverlay').style.display = 'none';
                     document.getElementById('dashboard').classList.remove('hidden');
                     generateId(); 
@@ -145,14 +172,21 @@
             } catch (e) { alert("Connection error"); }
         }
 
-        function logout() { token = ''; location.reload(); }
+        function logout() {
+            token = '';
+            // Clear token from browser session
+            sessionStorage.removeItem('adminToken');
+            location.reload();
+        }
 
+        // --- ID GENERATOR ---
         function generateId() {
             const year = new Date().getFullYear();
             const randomNum = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
             document.getElementById('newId').value = `CYB-${year}-${randomNum}`;
         }
 
+        // --- DATA FUNCTIONS ---
         async function loadData() {
             const res = await fetch(API, { headers: { 'Authorization': `Bearer ${token}` }});
             const data = await res.json();
