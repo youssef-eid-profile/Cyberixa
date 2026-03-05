@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>لوحة تحكم المسؤول | Cyberixa</title>
-    <!-- Alexandria Font for Arabic -->
     <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -19,24 +18,10 @@
             padding-bottom: 20px;
             border-bottom: 1px solid #eee;
         }
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .header-left img {
-            height: 40px;
-        }
-        .header-left h1 {
-            margin: 0;
-            font-size: 1.5rem;
-            color: #004e92;
-        }
-        .header-right {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
+        .header-left { display: flex; align-items: center; gap: 15px; }
+        .header-left img { height: 40px; }
+        .header-left h1 { margin: 0; font-size: 1.5rem; color: #004e92; }
+        .header-right { display: flex; gap: 10px; align-items: center; }
 
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th, td { padding: 12px; text-align: right; border-bottom: 1px solid #eee; vertical-align: middle; }
@@ -55,10 +40,18 @@
         
         /* Login Modal */
         #loginOverlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:flex; justify-content:center; align-items:center; z-index:100; }
-        .login-box { background: white; padding: 40px; border-radius: 10px; text-align: center; width: 350px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .login-box { background: white; padding: 40px; border-radius: 10px; text-align: center; width: 350px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); position: relative; }
         .login-box img { margin-bottom: 20px; }
         .login-box h2 { margin: 0 0 10px 0; color: #333; }
         .hidden { display: none !important; }
+        
+        /* Language Switch in Login */
+        .lang-switch-login {
+            position: absolute;
+            top: 15px;
+            left: 15px; /* Left for RTL */
+            font-size: 0.8rem;
+        }
     </style>
 </head>
 <body>
@@ -66,6 +59,9 @@
     <!-- Login Screen -->
     <div id="loginOverlay">
         <div class="login-box">
+            <!-- Lang Switch Top Left (RTL) -->
+            <a href="admin.html" class="btn btn-outline lang-switch-login">English</a>
+
             <img src="images/logo.png" alt="Cyberixa Logo" style="height: 50px;" onerror="this.style.display='none'">
             <h2>تسجيل دخول المسؤول</h2>
             <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">أدخل كلمة مرور المسؤول</p>
@@ -85,6 +81,7 @@
                 <h1>إدارة الشهادات</h1>
             </div>
             <div class="header-right">
+                <!-- Lang Switch in Dashboard -->
                 <a href="admin.html" class="btn btn-outline" title="Switch to English">EN</a>
                 <button onclick="logout()" class="btn btn-danger" style="font-size: 0.8rem;"><i class="fas fa-sign-out-alt"></i> خروج</button>
             </div>
@@ -95,7 +92,6 @@
             <h3 style="margin-top:0;"><i class="fas fa-plus-circle" style="color: #004e92;"></i> إضافة طالب جديد</h3>
             
             <div class="form-row">
-                <!-- ID Input with Generate Button -->
                 <div class="input-group">
                     <input type="text" id="newId" placeholder="رقم الشهادة (مثال: CYB-2026-0001)">
                     <button onclick="generateId()" class="btn btn-outline" title="توليد تلقائي"><i class="fas fa-magic"></i></button>
@@ -122,9 +118,7 @@
                     <th style="width: 100px;">خيارات</th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- Data loads here -->
-            </tbody>
+            <tbody></tbody>
         </table>
     </div>
 
@@ -132,7 +126,6 @@
         const API = '/api/manage';
         let token = ''; 
 
-        // --- AUTH FUNCTIONS ---
         async function login() {
             token = document.getElementById('passwordInput').value;
             try {
@@ -145,29 +138,20 @@
                 } else {
                     document.getElementById('loginError').style.display = 'block';
                 }
-            } catch (e) {
-                alert("خطأ في الاتصال");
-            }
+            } catch (e) { alert("خطأ في الاتصال"); }
         }
 
-        function logout() {
-            token = '';
-            location.reload();
-        }
+        function logout() { token = ''; location.reload(); }
 
-        // --- ID GENERATOR ---
         function generateId() {
             const year = new Date().getFullYear();
             const randomNum = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
-            const newId = `CYB-${year}-${randomNum}`;
-            document.getElementById('newId').value = newId;
+            document.getElementById('newId').value = `CYB-${year}-${randomNum}`;
         }
 
-        // --- DATA FUNCTIONS ---
         async function loadData() {
             const res = await fetch(API, { headers: { 'Authorization': `Bearer ${token}` }});
             const data = await res.json();
-            
             const tbody = document.querySelector('#certTable tbody');
             tbody.innerHTML = '';
             
@@ -179,7 +163,6 @@
             data.forEach(cert => {
                 const tr = document.createElement('tr');
                 const link = cert.link || `${window.location.origin}/verify.html?id=${cert.id}`;
-
                 tr.innerHTML = `
                     <td><strong>${cert.id}</strong></td>
                     <td>${cert.name}</td>
@@ -188,7 +171,7 @@
                     <td>
                         <div style="display:flex; gap:5px; align-items:center;">
                             <input type="text" value="${link}" readonly style="font-size:0.7rem; padding:4px; width:100%; border:1px solid #eee; background:#f9f9f9; direction: ltr; text-align: right;">
-                            <button onclick="copyLink('${link}')" class="btn btn-primary" style="padding:4px 8px; font-size:0.8rem; white-space:nowrap;"><i class="fas fa-copy"></i></button>
+                            <button onclick="copyLink('${link}')" class="btn btn-primary" style="padding:4px 8px; font-size:0.8rem;"><i class="fas fa-copy"></i></button>
                         </div>
                     </td>
                     <td><button onclick="deleteCert('${cert.id}')" class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;"><i class="fas fa-trash"></i></button></td>
@@ -207,50 +190,31 @@
 
             const res = await fetch(API, {
                 method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ id, name, course, date })
             });
 
             if (res.ok) {
                 alert("تمت إضافة الشهادة بنجاح!");
-                loadData();
-                generateId(); 
+                loadData(); generateId(); 
                 document.getElementById('newName').value = '';
                 document.getElementById('newCourse').value = '';
                 document.getElementById('newDate').value = '';
-            } else {
-                alert("خطأ في إضافة الشهادة.");
-            }
+            } else { alert("خطأ في إضافة الشهادة."); }
         }
 
         async function deleteCert(id) {
             if(!confirm("هل أنت متأكد من حذف الشهادة رقم " + id + "؟")) return;
-
             const res = await fetch(API, {
                 method: 'DELETE',
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ id })
             });
-
-            if (res.ok) {
-                loadData();
-            } else {
-                alert("خطأ في الحذف");
-            }
+            if (res.ok) loadData(); else alert("خطأ في الحذف");
         }
 
         function copyLink(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert("تم نسخ الرابط!");
-            }, (err) => {
-                prompt("انسخ هذا الرابط:", text);
-            });
+            navigator.clipboard.writeText(text).then(() => alert("تم نسخ الرابط!"), () => prompt("انسخ هذا الرابط:", text));
         }
     </script>
 </body>
