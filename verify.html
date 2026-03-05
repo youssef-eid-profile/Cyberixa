@@ -6,6 +6,9 @@
     <title>Certificate Verification | Cyberixa</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     <style>
+        /* Global Reset to fix width issues */
+        * { box-sizing: border-box; }
+
         :root {
             --primary-color: #004e92;
             --secondary-color: #00c6ff;
@@ -54,36 +57,20 @@
             color: white;
         }
 
-        .logo {
-            margin-bottom: 20px;
-        }
-        .logo img {
-            height: 50px;
-        }
+        .logo { margin-bottom: 20px; }
+        .logo img { height: 50px; }
         .logo-fallback {
             display: none;
             font-family: 'Orbitron', sans-serif;
             font-size: 1.8rem;
             font-weight: 700;
             color: var(--primary-color);
-            letter-spacing: 1px;
         }
-        .status-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-        }
+        .status-icon { font-size: 4rem; margin-bottom: 20px; }
         .valid { color: var(--success); }
         .invalid { color: var(--error); }
-        h1 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-        .student-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 10px 0;
-            color: #333;
-        }
+        h1 { color: var(--primary-color); margin-bottom: 10px; }
+        .student-name { font-size: 1.5rem; font-weight: 700; margin: 10px 0; color: #333; }
         .course-name {
             font-size: 1.1rem;
             color: #666;
@@ -93,14 +80,12 @@
             display: inline-block;
             margin-bottom: 20px;
         }
-        .date {
-            font-size: 0.9rem;
-            color: #999;
-        }
+        .date { font-size: 0.9rem; color: #999; }
         .hidden { display: none; }
         
+        /* Fixed Button Styling */
         .btn-action {
-            display: inline-flex;
+            display: flex; /* Flex ensures content is centered perfectly */
             align-items: center;
             justify-content: center;
             gap: 8px;
@@ -130,9 +115,7 @@
             text-decoration: underline;
         }
 
-        .input-group {
-            margin-top: 20px;
-        }
+        .input-group { margin-top: 20px; }
         .input-field {
             width: 100%;
             padding: 12px;
@@ -141,8 +124,6 @@
             font-size: 1rem;
             text-align: center;
             margin-bottom: 10px;
-            transition: border-color 0.3s;
-            box-sizing: border-box;
         }
         .input-field:focus {
             border-color: var(--primary-color);
@@ -152,8 +133,6 @@
         #reader {
             width: 100%;
             margin-top: 20px;
-            border-radius: 10px;
-            overflow: hidden;
         }
     </style>
 </head>
@@ -203,7 +182,7 @@
                 <button onclick="handleManualVerify()" class="btn-action">
                     <i class="fas fa-search"></i> Verify ID
                 </button>
-                <button onclick="startScanner()" class="btn-action btn-secondary" style="margin-top: 10px;">
+                <button onclick="startScanner()" class="btn-action btn-secondary">
                     <i class="fas fa-qrcode"></i> Scan QR Code
                 </button>
             </div>
@@ -227,7 +206,6 @@
         const params = new URLSearchParams(window.location.search);
         const urlId = params.get('id'); 
 
-        // Elements
         const loadingEl = document.getElementById('loading');
         const validEl = document.getElementById('valid-cert');
         const invalidEl = document.getElementById('invalid-cert');
@@ -236,7 +214,6 @@
 
         let html5QrCode;
 
-        // 1. On Load
         if (urlId) {
             verifyCertificate(urlId);
         } else {
@@ -244,10 +221,8 @@
             noInputEl.classList.remove('hidden');
         }
         
-        // Update lang switch to keep ID
         document.getElementById('lang-link').href = `verify-ar.html${window.location.search}`;
 
-        // 2. Manual Verification
         function handleManualVerify() {
             const inputId = document.getElementById('input-cert-id').value.trim();
             if (!inputId) { alert("Please enter a Certificate ID"); return; }
@@ -261,7 +236,6 @@
             if (e.key === 'Enter') handleManualVerify();
         });
 
-        // 3. QR Scanner Logic
         function startScanner() {
             noInputEl.classList.add('hidden');
             scannerEl.classList.remove('hidden');
@@ -291,7 +265,6 @@
         }
         function onScanFailure(error) {}
 
-        // 4. Main Logic
         async function verifyCertificate(idToVerify) {
             validEl.classList.add('hidden'); invalidEl.classList.add('hidden'); loadingEl.style.display = 'block';
             try {
