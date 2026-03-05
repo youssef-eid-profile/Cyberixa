@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyberixa | Empowering the Digital Generation</title>
-    <meta name="description" content="Cyberixa - Innovating Securely. Empowering Digitally. IT, Cybersecurity, and Network Engineering education based in Alexandria, Egypt.">
+    <title>Syberixa | تمكين الجيل الرقمي</title>
+    <meta name="description" content="Cyberixa - الابتكار بأمان. التمكين رقمياً. تعليم تقنية المعلومات والأمن السيبراني وهندسة الشبكات في الإسكندرية، مصر.">
     
     <link rel="icon" href="images/wlogo.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/wlogo.png">
@@ -14,7 +14,8 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Added Alexandria Font for Arabic -->
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;600;700&family=Inter:wght@300;400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -44,11 +45,12 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Alexandria', sans-serif; /* Updated to Alexandria */
             color: var(--text-color);
             line-height: 1.6;
             background-color: var(--white);
             overflow-x: hidden;
+            direction: rtl; /* Right to Left */
         }
 
         a {
@@ -78,7 +80,7 @@
             display: block;
             width: 60px;
             height: 4px;
-            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+            background: linear-gradient(to left, var(--secondary-color), var(--primary-color)); /* Reversed gradient for RTL visual balance */
             margin: 10px auto 0;
             border-radius: 2px;
         }
@@ -97,6 +99,7 @@
             transition: var(--transition);
             cursor: pointer;
             border: none;
+            font-family: inherit; /* Ensure font inheritance */
         }
 
         .btn-primary {
@@ -137,7 +140,7 @@
         }
 
         .logo img {
-            height: 50px; 
+            height: 50px;
             width: auto;
         }
 
@@ -157,13 +160,14 @@
             color: var(--secondary-color);
         }
 
+        /* RTL Underline Animation */
         .nav-links a::after {
             content: '';
             position: absolute;
             width: 0;
             height: 2px;
             bottom: -5px;
-            left: 0;
+            right: 0; /* Start from right */
             background-color: var(--secondary-color);
             transition: var(--transition);
         }
@@ -178,8 +182,8 @@
             color: var(--primary-color);
             cursor: pointer;
         }
-
-        /* Language Switcher Button Styles */
+        
+        /* Language Switcher Button */
         .lang-switch {
             background: var(--light-color);
             padding: 5px 12px;
@@ -194,15 +198,11 @@
             background: var(--primary-color);
             color: white;
         }
-        /* Remove underline effect for lang button */
-        .lang-switch::after {
-            display: none;
-        }
 
         /* --- Hero Section --- */
         #hero {
             background: linear-gradient(rgba(0, 30, 60, 0.8), rgba(0, 30, 60, 0.8)), 
-                        url('images/techbg.jpg'); 
+                        url('images/techbg.jpg');
             background-size: cover;
             background-position: center;
             color: var(--white);
@@ -211,7 +211,7 @@
         }
 
         #hero h1 {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Orbitron', sans-serif; /* Keep English Logo font or change if you have Arabic logo font */
             font-size: 3rem;
             margin-bottom: 20px;
         }
@@ -241,7 +241,7 @@
             background: var(--light-color);
             padding: 30px;
             border-radius: 10px;
-            border-left: 5px solid var(--secondary-color);
+            border-right: 5px solid var(--secondary-color); /* Changed to Right for RTL */
             box-shadow: var(--shadow);
         }
 
@@ -319,7 +319,7 @@
         }
 
         .track-header {
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(to left, var(--primary-color), var(--secondary-color)); /* Reversed gradient */
             color: var(--white);
             padding: 20px 30px;
         }
@@ -330,7 +330,8 @@
 
         .track-body ul {
             list-style-type: disc;
-            padding-left: 20px;
+            padding-right: 20px; /* RTL Padding for list */
+            padding-left: 0;
             margin-top: 10px;
         }
 
@@ -414,14 +415,15 @@
             margin-bottom: 10px;
             font-size: 0.95rem;
             position: relative;
-            padding-left: 20px;
+            padding-right: 20px; /* RTL */
+            padding-left: 0;
         }
 
         .ceo-list li::before {
             content: '•';
             color: var(--primary-color);
             position: absolute;
-            left: 0;
+            right: 0; /* RTL */
             font-weight: bold;
         }
 
@@ -466,7 +468,7 @@
 
         .footer-col ul li a:hover {
             color: var(--secondary-color);
-            padding-left: 5px;
+            padding-right: 5px; /* RTL */
             transition: var(--transition);
         }
 
@@ -566,14 +568,14 @@
                     <i class="fas fa-bars"></i>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#solutions">Solutions</a></li>
-                    <li><a href="#tracks">Courses</a></li>
-                    <li><a href="#ceo">CEO</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="https://forms.gle/Qw2JcrxDw6DB1CRv6" class="btn btn-primary" style="padding: 8px 20px; color: white;">Careers</a></li>
-                    <!-- Language Switcher Button -->
-                    <li><a href="index-ar.html" class="lang-switch">AR</a></li>
+                    <li><a href="#about">عن الشركة</a></li>
+                    <li><a href="#solutions">الحلول</a></li>
+                    <li><a href="#tracks">الدورات</a></li>
+                    <li><a href="#ceo">الرئيس التنفيذي</a></li>
+                    <li><a href="#contact">اتصل بنا</a></li>
+                    <li><a href="https://forms.gle/Qw2JcrxDw6DB1CRv6" class="btn btn-primary" style="padding: 8px 20px; color: white;">وظائف</a></li>
+                    <!-- Link back to English version -->
+                    <li><a href="index.html" class="lang-switch">EN</a></li>
                 </ul>
             </nav>
         </div>
@@ -582,11 +584,11 @@
     <!-- Hero Section -->
     <section id="hero">
         <div class="container">
-            <h1>Empowering the Digital Generation</h1>
-            <p>Innovating Securely. Empowering Digitally. Join us to bridge the gap between academic learning and industry demands through practical, hands-on courses.</p>
+            <h1>تمكين الجيل الرقمي</h1>
+            <p>نبتكر بأمان. نُمكن رقمياً. انضم إلينا لنسد الفجوة بين التعليم الأكاديمي ومتطلبات الصناعة من خلال دورات عملية وتطبيقية.</p>
             <div style="margin-top: 30px;">
-                <a href="#tracks" class="btn btn-primary">Explore Courses</a>
-                <a href="#contact" class="btn btn-outline" style="color: white; border-color: white; margin-left: 10px;">Contact Us</a>
+                <a href="#tracks" class="btn btn-primary">استكشف الدورات</a>
+                <a href="#contact" class="btn btn-outline" style="color: white; border-color: white; margin-right: 10px; margin-left: 0;">تواصل معنا</a>
             </div>
         </div>
     </section>
@@ -594,26 +596,26 @@
     <!-- About Section -->
     <section id="about">
         <div class="container">
-            <h2>Who We Are</h2>
+            <h2>من نحن</h2>
             <div class="about-grid">
                 <div class="vision-mission-card">
-                    <h3><i class="fas fa-eye" style="color: var(--primary-color);"></i> Vision</h3>
-                    <p>To empower the next generation of digital innovators and secure a smarter, safer future for Egypt and the region.</p>
+                    <h3><i class="fas fa-eye" style="color: var(--primary-color); margin-left: 10px;"></i> الرؤية</h3>
+                    <p>تمكين الجيل القادم من المبتكرين الرقميين وتأمين مستقبل أذكى وأكثر أماناً لمصر والمنطقة.</p>
                 </div>
                 <div class="vision-mission-card">
-                    <h3><i class="fas fa-bullseye" style="color: var(--primary-color);"></i> Mission</h3>
-                    <p>Delivering secure tech solutions, enabling learning, and driving innovation across communities.</p>
+                    <h3><i class="fas fa-bullseye" style="color: var(--primary-color); margin-left: 10px;"></i> المهمة</h3>
+                    <p>تقديم حلول تقنية آمنة، وتمكين التعلم، ودفع عجلة الابتكار في المجتمعات.</p>
                 </div>
             </div>
 
-            <h3 style="text-align: center; margin-top: 50px;">Our Values</h3>
+            <h3 style="text-align: center; margin-top: 50px;">قيمنا</h3>
             <div class="values-grid">
-                <div class="value-item">Empowerment</div>
-                <div class="value-item">Integrity</div>
-                <div class="value-item">Innovation</div>
-                <div class="value-item">Collaboration</div>
-                <div class="value-item">Security</div>
-                <div class="value-item">Sustainability</div>
+                <div class="value-item">التمكين</div>
+                <div class="value-item">النزاهة</div>
+                <div class="value-item">الابتكار</div>
+                <div class="value-item">التعاون</div>
+                <div class="value-item">الأمن</div>
+                <div class="value-item">الاستدامة</div>
             </div>
         </div>
     </section>
@@ -621,37 +623,37 @@
     <!-- Solutions Section -->
     <section id="solutions">
         <div class="container">
-            <h2>Our Solutions</h2>
+            <h2>حلولنا</h2>
             <div class="solutions-grid">
                 <!-- Solution 1 -->
                 <article class="solution-card">
                     <div class="solution-icon"><i class="fas fa-graduation-cap"></i></div>
-                    <h3>Capacity Building</h3>
-                    <p>Accredited training programs in partnership with global academies to empower youth and professionals in IT and cybersecurity.</p>
+                    <h3>بناء القدرات</h3>
+                    <p>برامج تدريبية معتمدة بالشراكة مع أكاديميات عالمية لتمكين الشباب والمحترفين في تقنية المعلومات والأمن السيبراني.</p>
                 </article>
                 <!-- Solution 2 -->
                 <article class="solution-card">
                     <div class="solution-icon"><i class="fas fa-hands-helping"></i></div>
-                    <h3>Community Development</h3>
-                    <p>Projects that bridge technology with social responsibility — fostering inclusion, innovation, and equal digital opportunities.</p>
+                    <h3>تنمية المجتمع</h3>
+                    <p>مشاريع تربط بين التكنولوجيا والمسؤولية الاجتماعية — تعزز الشمول والابتكار وتكافؤ الفرص الرقمية.</p>
                 </article>
                 <!-- Solution 3 -->
                 <article class="solution-card">
                     <div class="solution-icon"><i class="fas fa-laptop-code"></i></div>
-                    <h3>Tech Education</h3>
-                    <p>Free, certified learning paths in cybersecurity, networking, and IT fundamentals to equip learners with future-ready skills.</p>
+                    <h3>التعليم التقني</h3>
+                    <p>مسارات تعلم مجانية ومعتمدة في الأمن السيبراني والشبكات وأساسيات تقنية المعلومات لتزويد المتعلمين بمهارات المستقبل.</p>
                 </article>
                 <!-- Solution 4 -->
                 <article class="solution-card">
                     <div class="solution-icon"><i class="fas fa-leaf"></i></div>
-                    <h3>Sustainability Consulting</h3>
-                    <p>Supporting organizations in integrating sustainable digital transformation strategies and ethical tech practices.</p>
+                    <h3>استشارات الاستدامة</h3>
+                    <p>دعم المنظمات في دمج استراتيجيات التحول الرقمي المستدام وممارسات التكنولوجيا الأخلاقية.</p>
                 </article>
                 <!-- Solution 5 -->
                 <article class="solution-card">
                     <div class="solution-icon"><i class="fas fa-network-wired"></i></div>
-                    <h3>Office Network Deployment</h3>
-                    <p>Prepare and deploy small to medium office networks and infrastructure, covering network planning, router and switch configuration, structured cabling, basic security, and troubleshooting to ensure reliable and secure connectivity.</p>
+                    <h3>نشر شبكات المكاتب</h3>
+                    <p>إعداد ونشر شبكات المكاتب الصغيرة والمتوسطة والبنية التحتية، بما يغطي تخطيط الشبكة وتكوين الموجهات والمحولات والكابلات والأمن الأساسي واستكشاف الأخطاء وإصلاحها.</p>
                 </article>
             </div>
         </div>
@@ -660,24 +662,24 @@
     <!-- Tracks & Courses Section -->
     <section id="tracks">
         <div class="container">
-            <h2>Tracks & Courses</h2>
+            <h2>المسارات والدورات</h2>
             <div class="track-container">
                 
                 <!-- Track 1 -->
                 <div class="track-card">
                     <div class="track-header">
-                        <h3>Cybersecurity & Ethical Hacking</h3>
+                        <h3>الأمن السيبراني والقرصنة الأخلاقية</h3>
                     </div>
                     <div class="track-body">
                         <ul>
-                            <li>Introduction to Cybersecurity</li>
-                            <li>Cyber Threat Management</li>
-                            <li>CyberOps Associate</li>
-                            <li>Network Security (CCNA Security)</li>
-                            <li>API & Web Pentesting Labs</li>
+                            <li>مقدمة في الأمن السيبراني</li>
+                            <li>إدارة التهديدات السيبرانية</li>
+                            <li>عمليات السيبرانية (CyberOps Associate)</li>
+                            <li>أمن الشبكات (CCNA Security)</li>
+                            <li>مختبرات اختبار الاختراق للواجهات البرمجية والويب</li>
                         </ul>
                         <div class="track-desc">
-                            Learn to protect systems, analyze threats, and defend digital infrastructures.
+                            تعلم كيفية حماية الأنظمة وتحليل التهديدات والدفاع عن البنية التحتية الرقمية.
                         </div>
                     </div>
                 </div>
@@ -685,18 +687,18 @@
                 <!-- Track 2 -->
                 <div class="track-card">
                     <div class="track-header">
-                        <h3>Computer Networking & Systems</h3>
+                        <h3>شبكات الحاسوب والأنظمة</h3>
                     </div>
                     <div class="track-body">
                         <ul>
-                            <li>Networking Essentials</li>
-                            <li>CCNA 1: Introduction to Networks</li>
-                            <li>CCNA 2: Switching, Routing & Wireless</li>
-                            <li>CCNA 3: Enterprise Networking, Security & Automation</li>
-                            <li>Network Automation Labs</li>
+                            <li>أساسيات الشبكات</li>
+                            <li>CCNA 1: مقدمة في الشبكات</li>
+                            <li>CCNA 2: التبديل والتوجيه واللاسلكي</li>
+                            <li>CCNA 3: شبكات المؤسسات والأتمتة</li>
+                            <li>مختبرات أتمتة الشبكات</li>
                         </ul>
                         <div class="track-desc">
-                            Master core networking concepts, routing, switching, and infrastructure management.
+                            إتقان مفاهيم الشبكات الأساسية والتوجيه والتبديل وإدارة البنية التحتية.
                         </div>
                     </div>
                 </div>
@@ -704,17 +706,17 @@
                 <!-- Track 3 -->
                 <div class="track-card">
                     <div class="track-header">
-                        <h3>Software Development & DevNet</h3>
+                        <h3>تطوير البرمجيات و DevNet</h3>
                     </div>
                     <div class="track-body">
                         <ul>
-                            <li>Python Programming Fundamentals</li>
+                            <li>أساسيات برمجة بايثون</li>
                             <li>DevNet Associate</li>
-                            <li>Web Development</li>
-                            <li>Basics of AI & Automation Awareness</li>
+                            <li>تطوير الويب</li>
+                            <li>أساسيات الذكاء الاصطناعي والأتمتة</li>
                         </ul>
                         <div class="track-desc">
-                            Combine coding with networking to create intelligent, automated solutions.
+                            دمج البرمجة مع الشبكات لإنشاء حلول ذكية وآلية.
                         </div>
                     </div>
                 </div>
@@ -722,16 +724,16 @@
                 <!-- Track 4 -->
                 <div class="track-card">
                     <div class="track-header">
-                        <h3>IT & Hardware Fundamentals</h3>
+                        <h3>أساسيات تقنية المعلومات والأجهزة</h3>
                     </div>
                     <div class="track-body">
                         <ul>
-                            <li>IT Essentials</li>
-                            <li>System Maintenance & Repair</li>
-                            <li>Hardware & Software Configuration</li>
+                            <li>أساسيات تقنية المعلومات (IT Essentials)</li>
+                            <li>صيانة وإصلاح الأنظمة</li>
+                            <li>تكوين الأجهزة والبرامج</li>
                         </ul>
                         <div class="track-desc">
-                            Build hands-on technical expertise in computer systems, troubleshooting, and support.
+                            بناء خبرة تقنية عملية في أنظمة الكمبيوتر واستكشاف الأخطاء وإصلاحها.
                         </div>
                     </div>
                 </div>
@@ -739,16 +741,16 @@
                 <!-- Track 5 -->
                 <div class="track-card">
                     <div class="track-header">
-                        <h3>Future Skills & Career Empowerment</h3>
+                        <h3>مهارات المستقبل والتمكين الوظيفي</h3>
                     </div>
                     <div class="track-body">
                         <ul>
-                            <li>Digital Literacy & Cyber Awareness</li>
-                            <li>Communication & Leadership Skills</li>
-                            <li>Career Readiness & Mentorship Programs</li>
+                            <li>محو الأمية الرقمية والتوعية السيبرانية</li>
+                            <li>مهارات التواصل والقيادة</li>
+                            <li>برامج الاستعداد للوظيفة والإرشاد</li>
                         </ul>
                         <div class="track-desc">
-                            Strengthen your professional edge with essential digital and soft skills.
+                            عزز مكانتك المهنية باستخدام المهارات الرقمية والشخصية الأساسية.
                         </div>
                     </div>
                 </div>
@@ -760,47 +762,47 @@
     <!-- CEO Profile Section -->
     <section id="ceo">
         <div class="container">
-            <h2>Meet Our Founder</h2>
+            <h2>تعرف على مؤسسنا</h2>
             
             <div class="ceo-profile">
                 <!-- CEO Image -->
                 <div class="ceo-image">
-                    <img src="images/CEO-Founder.png" alt="Youssef Eid - CEO & Founder" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=687&auto=format&fit=crop'">
+                    <img src="images/CEO-Founder.png" alt="يوسف عيد - الرئيس التنفيذي والمؤسس" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=687&auto=format&fit=crop'">
                 </div>
 
                 <!-- CEO Info -->
                 <div class="ceo-content">
                     <div class="ceo-header">
-                        <div class="ceo-role">CEO & Founder</div>
-                        <h1 style="font-size: 2.5rem; color: var(--primary-color);">Youssef Eid</h1>
-                        <p style="font-size: 1.1rem; color: #666;">Alexandria, Egypt</p>
+                        <div class="ceo-role">الرئيس التنفيذي والمؤسس</div>
+                        <h1 style="font-size: 2.5rem; color: var(--primary-color);">يوسف عيد</h1>
+                        <p style="font-size: 1.1rem; color: #666;">الإسكندرية، مصر</p>
                     </div>
 
                     <div class="ceo-details-grid">
                         <!-- Education -->
                         <div class="ceo-section">
-                            <h3><i class="fas fa-university"></i> Education</h3>
+                            <h3><i class="fas fa-university" style="margin-left: 10px;"></i> التعليم</h3>
                             <ul class="ceo-list">
-                                <li><strong>Information Technology Bachelor</strong><br>Borg Al Arab Technological University (2025-present)</li>
-                                <li><strong>Networks & Cybersecurity Diploma</strong><br>WE Applied Technology School, Alexandria (2022-2025)</li>
+                                <li><strong>بكالوريوس تكنولوجيا المعلومات</strong><br>جامعة برج العرب التكنولوجية (2025 - حتى الآن)</li>
+                                <li><strong>دبلوم الشبكات والأمن السيبراني</strong><br>مدرسة وي للتكنولوجيا التطبيقية، الإسكندرية (2022-2025)</li>
                             </ul>
                         </div>
 
                         <!-- Experience -->
                         <div class="ceo-section">
-                            <h3><i class="fas fa-briefcase"></i> Experience</h3>
+                            <h3><i class="fas fa-briefcase" style="margin-left: 10px;"></i> الخبرات</h3>
                             <ul class="ceo-list">
-                                <li><strong>Cybersecurity Trainer</strong> - GDG-Hurghada (Jan 2025 – Present)</li>
-                                <li><strong>Instructor</strong> - Cisco Networking Academy (Feb 2025 - Present)</li>
-                                <li><strong>Cybersecurity Trainer</strong> - GDG-SVU (Nov 2024 – May 2025)</li>
-                                <li><strong>HR Member</strong> - YLY-Ministry of Youth (Aug 2024 – Aug 2025)</li>
-                                <li><strong>Penetration Tester Intern</strong> - CyberX World (Aug 2024 – Nov 2024)</li>
+                                <li><strong>مدرب أمن سيبراني</strong> - GDG-Hurghada (يناير 2025 – حتى الآن)</li>
+                                <li><strong>مدرب</strong> - أكاديمية سيسكو للشبكات (فبراير 2025 - حتى الآن)</li>
+                                <li><strong>مدرب أمن سيبراني</strong> - GDG-SVU (نوفمبر 2024 – مايو 2025)</li>
+                                <li><strong>عضو موارد بشرية</strong> - YLY-وزارة الشباب (أغسطس 2024 – أغسطس 2025)</li>
+                                <li><strong>متدرب اختبار اختراق</strong> - CyberX World (أغسطس 2024 – نوفمبر 2024)</li>
                             </ul>
                         </div>
 
                         <!-- Certifications -->
                         <div class="ceo-section" style="grid-column: 1 / -1;">
-                            <h3><i class="fas fa-certificate"></i> Professional Certifications</h3>
+                            <h3><i class="fas fa-certificate" style="margin-left: 10px;"></i> الشهادات المهنية</h3>
                             <div class="tag-container">
                                 <span class="tag">CCEP (Red Team Leaders)</span>
                                 <span class="tag">CCNP ENCOR</span>
@@ -818,8 +820,8 @@
                     </div>
                     
                     <div style="margin-top: 30px;">
-                        <a href="https://www.linkedin.com/in/youssef-eid-profile" target="_blank" class="btn btn-primary"><i class="fab fa-linkedin"></i> Connect on LinkedIn</a>
-                        <a href="mailto:youssef-eid@outlook.com" class="btn btn-outline"><i class="fas fa-envelope"></i> Email Founder</a>
+                        <a href="https://www.linkedin.com/in/youssef-eid-profile" target="_blank" class="btn btn-primary"><i class="fab fa-linkedin" style="margin-left: 8px;"></i> تواصل على لينكد إن</a>
+                        <a href="mailto:youssef-eid@outlook.com" class="btn btn-outline"><i class="fas fa-envelope" style="margin-left: 8px;"></i> راسل المؤسس</a>
                     </div>
                 </div>
             </div>
@@ -835,36 +837,36 @@
                     <div class="logo" style="margin-bottom: 20px;">
                         <img src="images/blogo.png" alt="Cyberixa White Logo" style="height: 40px; filter: invert(1);">
                     </div>
-                    <p>Cyberixa is an innovative training and technology company based in Alexandria, Egypt, aiming to bridge the gap between academic learning and industry demands.</p>
+                    <p>Syberixa هي شركة تدريب وتكنولوجيا مبتكرة مقرها الإسكندرية، مصر، وتهدف إلى سد الفجوة بين التعليم الأكاديمي ومتطلبات الصناعة.</p>
                 </div>
 
                 <!-- Contact Info -->
                 <div class="footer-col">
-                    <h4>Contact Us</h4>
+                    <h4>تواصل معنا</h4>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
                         <a href="mailto:cyberixa.eg@gmail.com">cyberixa.eg@gmail.com</a>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>Alexandria, Egypt</span>
+                        <span>الإسكندرية، مصر</span>
                     </div>
                 </div>
 
                 <!-- Quick Links -->
                 <div class="footer-col">
-                    <h4>Quick Links</h4>
+                    <h4>روابط سريعة</h4>
                     <ul>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#tracks">Courses</a></li>
-                        <li><a href="#solutions">Solutions</a></li>
-                        <li><a href="https://forms.gle/Qw2JcrxDw6DB1CRv6">Careers / Join Team</a></li>
+                        <li><a href="#about">عن الشركة</a></li>
+                        <li><a href="#tracks">الدورات</a></li>
+                        <li><a href="#solutions">الحلول</a></li>
+                        <li><a href="https://forms.gle/Qw2JcrxDw6DB1CRv6">وظائف / انضم للفريق</a></li>
                     </ul>
                 </div>
 
                 <!-- Social -->
                 <div class="footer-col">
-                    <h4>Follow Us</h4>
+                    <h4>تابعنا</h4>
                     <div class="social-icons">
                         <a href="https://www.facebook.com/cyberixa.eg" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                         <a href="https://www.linkedin.com/company/cyberixa-eg" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
@@ -874,12 +876,11 @@
             </div>
 
             <div class="copyright">
-                &copy; 2026 Cyberixa. All Rights Reserved. | Empowering the Digital Generation
+                &copy; 2026 Cyberixa. جميع الحقوق محفوظة. | تمكين الجيل الرقمي
             </div>
         </div>
     </footer>
 
-    <!-- SCRIPTS -->
     <script>
         // --- Mobile Menu Script ---
         function toggleMenu() {
