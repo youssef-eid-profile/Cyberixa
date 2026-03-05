@@ -3,28 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyberixa | تمكين الجيل الرقمي</title>
-    <meta name="description" content="Cyberixa - الابتكار بأمان. التمكين رقمياً. تعليم تقنية المعلومات والأمن السيبراني وهندسة الشبكات في الإسكندرية، مصر.">
+    <title>Syberixa | تمكين الجيل الرقمي</title>
+    <meta name="description" content="Cyberixa - الابتكار بأمان. التمكين رقمياً. تعليم تقنية المعلومات والأمن السيبراني في الإسكندرية، مصر.">
     
     <link rel="icon" href="images/wlogo.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/wlogo.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/wlogo.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="images/wlogo.png">
-
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Added Alexandria Font for Arabic -->
     <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;600;700&family=Inter:wght@300;400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- CSS Variables & Reset --- */
         :root {
-            --primary-color: #004e92; /* Deep Blue */
-            --secondary-color: #00c6ff; /* Cyan/Blue Light */
+            --primary-color: #004e92;
+            --secondary-color: #00c6ff;
             --dark-color: #1a1a1a;
             --light-color: #f4f7f6;
             --white: #ffffff;
@@ -33,555 +24,118 @@
             --transition: all 0.3s ease;
             --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Alexandria', sans-serif; color: var(--text-color); line-height: 1.6; background-color: var(--white); overflow-x: hidden; direction: rtl; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        h1, h2, h3, h4 { font-weight: 700; margin-bottom: 1rem; }
+        h2 { font-size: 2.2rem; color: var(--primary-color); text-align: center; margin-bottom: 3rem; position: relative; }
+        h2::after { content: ''; display: block; width: 60px; height: 4px; background: linear-gradient(to left, var(--secondary-color), var(--primary-color)); margin: 10px auto 0; border-radius: 2px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .btn { display: inline-block; padding: 12px 30px; border-radius: 5px; font-weight: 600; transition: var(--transition); cursor: pointer; border: none; font-family: inherit; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: var(--white); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0, 78, 146, 0.3); }
+        .btn-outline { border: 2px solid var(--secondary-color); color: var(--primary-color); background: transparent; }
+        .btn-outline:hover { background: var(--secondary-color); color: var(--white); }
+
+        header { background-color: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; padding: 15px 0; }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo img { height: 50px; width: auto; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { font-weight: 500; color: var(--text-color); transition: var(--transition); position: relative; }
+        .nav-links a:hover { color: var(--secondary-color); }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; right: 0; background-color: var(--secondary-color); transition: var(--transition); }
+        .nav-links a:hover::after { width: 100%; }
+        .mobile-menu-btn { display: none; font-size: 1.5rem; color: var(--primary-color); cursor: pointer; }
+        .lang-switch { background: var(--light-color); padding: 5px 12px; border-radius: 20px; font-size: 0.9rem; font-weight: 600; border: 1px solid var(--accent-gray); color: var(--primary-color); transition: var(--transition); }
+        .lang-switch:hover { background: var(--primary-color); color: white; }
+
+        #hero { background: linear-gradient(rgba(0, 30, 60, 0.8), rgba(0, 30, 60, 0.8)), url('images/techbg.jpg'); background-size: cover; background-position: center; color: var(--white); padding: 120px 0; text-align: center; }
+        #hero h1 { font-family: 'Orbitron', sans-serif; font-size: 3rem; margin-bottom: 20px; }
+        #hero p { font-size: 1.2rem; margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; }
+
+        #about { padding: 80px 0; background-color: var(--white); }
+        .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 40px; }
+        .vision-mission-card { background: var(--light-color); padding: 30px; border-radius: 10px; border-right: 5px solid var(--secondary-color); box-shadow: var(--shadow); }
+        .values-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; margin-top: 30px; text-align: center; }
+        .value-item { background: var(--white); padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: var(--transition); }
+        .value-item:hover { transform: translateY(-5px); color: var(--primary-color); }
+
+        #solutions { padding: 80px 0; background-color: #f9fbfd; }
+        .solutions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .solution-card { background: var(--white); padding: 30px; border-radius: 12px; text-align: center; transition: var(--transition); border: 1px solid var(--accent-gray); }
+        .solution-card:hover { box-shadow: 0 10px 30px rgba(0, 78, 146, 0.15); border-color: var(--secondary-color); }
+        .solution-icon { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 20px; }
+
+        #tracks { padding: 80px 0; }
+        .track-container { display: flex; flex-direction: column; gap: 40px; }
+        .track-card { background: var(--white); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; }
+        .track-header { background: linear-gradient(to left, var(--primary-color), var(--secondary-color)); color: var(--white); padding: 20px 30px; }
+        .track-body { padding: 30px; }
+        .track-body ul { list-style-type: disc; padding-right: 20px; padding-left: 0; margin-top: 10px; }
+        .track-body li { margin-bottom: 8px; }
+        .track-desc { margin-top: 20px; font-style: italic; color: #555; background: #f4f7f6; padding: 15px; border-radius: 5px; }
+
+        #ceo { padding: 100px 0; background-color: #f0f4f8; }
+        .ceo-profile { background: var(--white); border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-wrap: wrap; }
+        .ceo-image { flex: 1 1 350px; background-color: #e0e0e0; min-height: 400px; position: relative; }
+        .ceo-image img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+        .ceo-content { flex: 2 1 500px; padding: 50px; }
+        .ceo-header { margin-bottom: 30px; border-bottom: 1px solid var(--accent-gray); padding-bottom: 20px; }
+        .ceo-role { color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
+        .ceo-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .ceo-section h3 { font-size: 1.1rem; color: var(--dark-color); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .ceo-list li { margin-bottom: 10px; font-size: 0.95rem; position: relative; padding-right: 20px; padding-left: 0; }
+        .ceo-list li::before { content: '•'; color: var(--primary-color); position: absolute; right: 0; font-weight: bold; }
+        .tag-container { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { background: #eef2f7; color: var(--primary-color); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: 500; }
+
+        footer { background-color: var(--dark-color); color: var(--white); padding: 60px 0 20px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-col h4 { font-size: 1.2rem; color: var(--secondary-color); margin-bottom: 20px; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a:hover { color: var(--secondary-color); padding-right: 5px; transition: var(--transition); }
+        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
+        .social-icons a { width: 40px; height: 40px; background: rgba(255,255,255,0.1); display: flex; justify-content: center; align-items: center; border-radius: 50%; transition: var(--transition); }
+        .social-icons a:hover { background: var(--secondary-color); transform: translateY(-3px); }
+        .contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .contact-item i { color: var(--secondary-color); }
+        .copyright { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; color: #888; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Alexandria', sans-serif; /* Updated to Alexandria */
-            color: var(--text-color);
-            line-height: 1.6;
-            background-color: var(--white);
-            overflow-x: hidden;
-            direction: rtl; /* Right to Left */
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        h1, h2, h3, h4 {
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        h2 {
-            font-size: 2.2rem;
-            color: var(--primary-color);
-            text-align: center;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        h2::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(to left, var(--secondary-color), var(--primary-color)); /* Reversed gradient for RTL visual balance */
-            margin: 10px auto 0;
-            border-radius: 2px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            border-radius: 5px;
-            font-weight: 600;
-            transition: var(--transition);
-            cursor: pointer;
-            border: none;
-            font-family: inherit; /* Ensure font inheritance */
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: var(--white);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 78, 146, 0.3);
-        }
-
-        .btn-outline {
-            border: 2px solid var(--secondary-color);
-            color: var(--primary-color);
-            background: transparent;
-        }
-
-        .btn-outline:hover {
-            background: var(--secondary-color);
-            color: var(--white);
-        }
-
-        /* --- Header & Navigation --- */
-        header {
-            background-color: var(--white);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 15px 0;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo img {
-            height: 50px;
-            width: auto;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            font-weight: 500;
-            color: var(--text-color);
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--secondary-color);
-        }
-
-        /* RTL Underline Animation */
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            right: 0; /* Start from right */
-            background-color: var(--secondary-color);
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            cursor: pointer;
-        }
-        
-        /* Language Switcher Button */
-        .lang-switch {
-            background: var(--light-color);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border: 1px solid var(--accent-gray);
-            color: var(--primary-color);
-            transition: var(--transition);
-        }
-        .lang-switch:hover {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        /* --- Hero Section --- */
-        #hero {
-            background: linear-gradient(rgba(0, 30, 60, 0.8), rgba(0, 30, 60, 0.8)), 
-                        url('images/techbg.jpg');
-            background-size: cover;
-            background-position: center;
-            color: var(--white);
-            padding: 120px 0;
-            text-align: center;
-        }
-
-        #hero h1 {
-            font-family: 'Orbitron', sans-serif; /* Keep English Logo font or change if you have Arabic logo font */
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        #hero p {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* --- About Section --- */
-        #about {
-            padding: 80px 0;
-            background-color: var(--white);
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        .vision-mission-card {
-            background: var(--light-color);
-            padding: 30px;
-            border-radius: 10px;
-            border-right: 5px solid var(--secondary-color); /* Changed to Right for RTL */
-            box-shadow: var(--shadow);
-        }
-
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .value-item {
-            background: var(--white);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: var(--transition);
-        }
-
-        .value-item:hover {
-            transform: translateY(-5px);
-            color: var(--primary-color);
-        }
-
-        /* --- Solutions Section --- */
-        #solutions {
-            padding: 80px 0;
-            background-color: #f9fbfd;
-        }
-
-        .solutions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .solution-card {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 12px;
-            text-align: center;
-            transition: var(--transition);
-            border: 1px solid var(--accent-gray);
-        }
-
-        .solution-card:hover {
-            box-shadow: 0 10px 30px rgba(0, 78, 146, 0.15);
-            border-color: var(--secondary-color);
-        }
-
-        .solution-icon {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        /* --- Tracks & Courses Section --- */
-        #tracks {
-            padding: 80px 0;
-        }
-
-        .track-container {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
-
-        .track-card {
-            background: var(--white);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .track-header {
-            background: linear-gradient(to left, var(--primary-color), var(--secondary-color)); /* Reversed gradient */
-            color: var(--white);
-            padding: 20px 30px;
-        }
-
-        .track-body {
-            padding: 30px;
-        }
-
-        .track-body ul {
-            list-style-type: disc;
-            padding-right: 20px; /* RTL Padding for list */
-            padding-left: 0;
-            margin-top: 10px;
-        }
-
-        .track-body li {
-            margin-bottom: 8px;
-        }
-
-        .track-desc {
-            margin-top: 20px;
-            font-style: italic;
-            color: #555;
-            background: #f4f7f6;
-            padding: 15px;
-            border-radius: 5px;
-        }
-
-        /* --- CEO Section --- */
-        #ceo {
-            padding: 100px 0;
-            background-color: #f0f4f8;
-        }
-
-        .ceo-profile {
-            background: var(--white);
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .ceo-image {
-            flex: 1 1 350px;
-            background-color: #e0e0e0;
-            min-height: 400px;
-            position: relative;
-        }
-
-        .ceo-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: top;
-        }
-
-        .ceo-content {
-            flex: 2 1 500px;
-            padding: 50px;
-        }
-
-        .ceo-header {
-            margin-bottom: 30px;
-            border-bottom: 1px solid var(--accent-gray);
-            padding-bottom: 20px;
-        }
-
-        .ceo-role {
-            color: var(--secondary-color);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-        }
-
-        .ceo-details-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .ceo-section h3 {
-            font-size: 1.1rem;
-            color: var(--dark-color);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .ceo-list li {
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-            position: relative;
-            padding-right: 20px; /* RTL */
-            padding-left: 0;
-        }
-
-        .ceo-list li::before {
-            content: '•';
-            color: var(--primary-color);
-            position: absolute;
-            right: 0; /* RTL */
-            font-weight: bold;
-        }
-
-        .tag-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tag {
-            background: #eef2f7;
-            color: var(--primary-color);
-            padding: 4px 10px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        /* --- Contact & Footer --- */
-        footer {
-            background-color: var(--dark-color);
-            color: var(--white);
-            padding: 60px 0 20px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-col h4 {
-            font-size: 1.2rem;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
-
-        .footer-col ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-col ul li a:hover {
-            color: var(--secondary-color);
-            padding-right: 5px; /* RTL */
-            transition: var(--transition);
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-icons a {
-            width: 40px;
-            height: 40px;
-            background: rgba(255,255,255,0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            transition: var(--transition);
-        }
-
-        .social-icons a:hover {
-            background: var(--secondary-color);
-            transform: translateY(-3px);
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .contact-item i {
-            color: var(--secondary-color);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.9rem;
-            color: #888;
-        }
-
-        /* --- Responsive Design --- */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none; 
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: var(--white);
-                flex-direction: column;
-                align-items: center;
-                padding: 20px 0;
-                box-shadow: 0 10px 10px rgba(0,0,0,0.05);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            #hero h1 {
-                font-size: 2rem;
-            }
-
-            .ceo-details-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .ceo-profile {
-                flex-direction: column;
-            }
-
-            .ceo-image {
-                min-height: 300px;
-            }
+            .nav-links { display: none; position: absolute; top: 70px; left: 0; width: 100%; background: var(--white); flex-direction: column; align-items: center; padding: 20px 0; box-shadow: 0 10px 10px rgba(0,0,0,0.05); }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            #hero h1 { font-size: 2rem; }
+            .ceo-details-grid { grid-template-columns: 1fr; }
+            .ceo-profile { flex-direction: column; }
+            .ceo-image { min-height: 300px; }
         }
     </style>
-
 </head>
 <body>
 
-    <!-- Header -->
     <header>
         <div class="container">
             <nav>
-                <a href="#" class="logo">
-                    <img src="images/logo.png" alt="Cyberixa Logo">
-                </a>
-                <div class="mobile-menu-btn" onclick="toggleMenu()">
-                    <i class="fas fa-bars"></i>
-                </div>
+                <a href="#" class="logo"><img src="images/logo.png" alt="Cyberixa Logo"></a>
+                <div class="mobile-menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
                 <ul class="nav-links">
                     <li><a href="#about">عن الشركة</a></li>
                     <li><a href="#solutions">الحلول</a></li>
                     <li><a href="#tracks">الدورات</a></li>
                     <li><a href="#ceo">الرئيس التنفيذي</a></li>
+                    <!-- Verify Link Added Here -->
+                    <li><a href="verify-ar.html">التحقق</a></li>
                     <li><a href="#contact">اتصل بنا</a></li>
                     <li><a href="https://forms.gle/Qw2JcrxDw6DB1CRv6" class="btn btn-primary" style="padding: 8px 20px; color: white;">وظائف</a></li>
-                    <!-- Link back to English version -->
                     <li><a href="index.html" class="lang-switch">EN</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section id="hero">
         <div class="container">
             <h1>تمكين الجيل الرقمي</h1>
@@ -593,7 +147,6 @@
         </div>
     </section>
 
-    <!-- About Section -->
     <section id="about">
         <div class="container">
             <h2>من نحن</h2>
@@ -607,291 +160,144 @@
                     <p>تقديم حلول تقنية آمنة، وتمكين التعلم، ودفع عجلة الابتكار في المجتمعات.</p>
                 </div>
             </div>
-
             <h3 style="text-align: center; margin-top: 50px;">قيمنا</h3>
             <div class="values-grid">
-                <div class="value-item">التمكين</div>
-                <div class="value-item">النزاهة</div>
-                <div class="value-item">الابتكار</div>
-                <div class="value-item">التعاون</div>
-                <div class="value-item">الأمن</div>
-                <div class="value-item">الاستدامة</div>
+                <div class="value-item">التمكين</div><div class="value-item">النزاهة</div><div class="value-item">الابتكار</div>
+                <div class="value-item">التعاون</div><div class="value-item">الأمن</div><div class="value-item">الاستدامة</div>
             </div>
         </div>
     </section>
 
-    <!-- Solutions Section -->
     <section id="solutions">
         <div class="container">
             <h2>حلولنا</h2>
             <div class="solutions-grid">
-                <!-- Solution 1 -->
                 <article class="solution-card">
                     <div class="solution-icon"><i class="fas fa-graduation-cap"></i></div>
                     <h3>بناء القدرات</h3>
-                    <p>برامج تدريبية معتمدة بالشراكة مع أكاديميات عالمية لتمكين الشباب والمحترفين في تقنية المعلومات والأمن السيبراني.</p>
+                    <p>برامج تدريبية معتمدة بالشراكة مع أكاديميات عالمية.</p>
                 </article>
-                <!-- Solution 2 -->
                 <article class="solution-card">
                     <div class="solution-icon"><i class="fas fa-hands-helping"></i></div>
                     <h3>تنمية المجتمع</h3>
-                    <p>مشاريع تربط بين التكنولوجيا والمسؤولية الاجتماعية — تعزز الشمول والابتكار وتكافؤ الفرص الرقمية.</p>
+                    <p>مشاريع تربط بين التكنولوجيا والمسؤولية الاجتماعية.</p>
                 </article>
-                <!-- Solution 3 -->
                 <article class="solution-card">
                     <div class="solution-icon"><i class="fas fa-laptop-code"></i></div>
                     <h3>التعليم التقني</h3>
-                    <p>مسارات تعلم مجانية ومعتمدة في الأمن السيبراني والشبكات وأساسيات تقنية المعلومات لتزويد المتعلمين بمهارات المستقبل.</p>
-                </article>
-                <!-- Solution 4 -->
-                <article class="solution-card">
-                    <div class="solution-icon"><i class="fas fa-leaf"></i></div>
-                    <h3>استشارات الاستدامة</h3>
-                    <p>دعم المنظمات في دمج استراتيجيات التحول الرقمي المستدام وممارسات التكنولوجيا الأخلاقية.</p>
-                </article>
-                <!-- Solution 5 -->
-                <article class="solution-card">
-                    <div class="solution-icon"><i class="fas fa-network-wired"></i></div>
-                    <h3>نشر شبكات المكاتب</h3>
-                    <p>إعداد ونشر شبكات المكاتب الصغيرة والمتوسطة والبنية التحتية، بما يغطي تخطيط الشبكة وتكوين الموجهات والمحولات والكابلات والأمن الأساسي واستكشاف الأخطاء وإصلاحها.</p>
+                    <p>مسارات تعلم مجانية ومعتمدة في الأمن السيبراني والشبكات.</p>
                 </article>
             </div>
         </div>
     </section>
 
-    <!-- Tracks & Courses Section -->
     <section id="tracks">
         <div class="container">
             <h2>المسارات والدورات</h2>
             <div class="track-container">
-                
-                <!-- Track 1 -->
                 <div class="track-card">
-                    <div class="track-header">
-                        <h3>الأمن السيبراني والقرصنة الأخلاقية</h3>
-                    </div>
+                    <div class="track-header"><h3>الأمن السيبراني والقرصنة الأخلاقية</h3></div>
                     <div class="track-body">
-                        <ul>
-                            <li>مقدمة في الأمن السيبراني</li>
-                            <li>إدارة التهديدات السيبرانية</li>
-                            <li>عمليات السيبرانية (CyberOps Associate)</li>
-                            <li>أمن الشبكات (CCNA Security)</li>
-                            <li>مختبرات اختبار الاختراق للواجهات البرمجية والويب</li>
-                        </ul>
-                        <div class="track-desc">
-                            تعلم كيفية حماية الأنظمة وتحليل التهديدات والدفاع عن البنية التحتية الرقمية.
-                        </div>
+                        <ul><li>مقدمة في الأمن السيبراني</li><li>إدارة التهديدات السيبرانية</li><li>عمليات السيبرانية</li></ul>
+                        <div class="track-desc">تعلم كيفية حماية الأنظمة وتحليل التهديدات.</div>
                     </div>
                 </div>
-
-                <!-- Track 2 -->
                 <div class="track-card">
-                    <div class="track-header">
-                        <h3>شبكات الحاسوب والأنظمة</h3>
-                    </div>
+                    <div class="track-header"><h3>شبكات الحاسوب والأنظمة</h3></div>
                     <div class="track-body">
-                        <ul>
-                            <li>أساسيات الشبكات</li>
-                            <li>CCNA 1: مقدمة في الشبكات</li>
-                            <li>CCNA 2: التبديل والتوجيه واللاسلكي</li>
-                            <li>CCNA 3: شبكات المؤسسات والأتمتة</li>
-                            <li>مختبرات أتمتة الشبكات</li>
-                        </ul>
-                        <div class="track-desc">
-                            إتقان مفاهيم الشبكات الأساسية والتوجيه والتبديل وإدارة البنية التحتية.
-                        </div>
+                        <ul><li>أساسيات الشبكات</li><li>CCNA 1</li><li>CCNA 2</li></ul>
+                        <div class="track-desc">إتقان مفاهيم الشبكات الأساسية.</div>
                     </div>
                 </div>
-
-                <!-- Track 3 -->
-                <div class="track-card">
-                    <div class="track-header">
-                        <h3>تطوير البرمجيات و DevNet</h3>
-                    </div>
-                    <div class="track-body">
-                        <ul>
-                            <li>أساسيات برمجة بايثون</li>
-                            <li>DevNet Associate</li>
-                            <li>تطوير الويب</li>
-                            <li>أساسيات الذكاء الاصطناعي والأتمتة</li>
-                        </ul>
-                        <div class="track-desc">
-                            دمج البرمجة مع الشبكات لإنشاء حلول ذكية وآلية.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Track 4 -->
-                <div class="track-card">
-                    <div class="track-header">
-                        <h3>أساسيات تقنية المعلومات والأجهزة</h3>
-                    </div>
-                    <div class="track-body">
-                        <ul>
-                            <li>أساسيات تقنية المعلومات (IT Essentials)</li>
-                            <li>صيانة وإصلاح الأنظمة</li>
-                            <li>تكوين الأجهزة والبرامج</li>
-                        </ul>
-                        <div class="track-desc">
-                            بناء خبرة تقنية عملية في أنظمة الكمبيوتر واستكشاف الأخطاء وإصلاحها.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Track 5 -->
-                <div class="track-card">
-                    <div class="track-header">
-                        <h3>مهارات المستقبل والتمكين الوظيفي</h3>
-                    </div>
-                    <div class="track-body">
-                        <ul>
-                            <li>محو الأمية الرقمية والتوعية السيبرانية</li>
-                            <li>مهارات التواصل والقيادة</li>
-                            <li>برامج الاستعداد للوظيفة والإرشاد</li>
-                        </ul>
-                        <div class="track-desc">
-                            عزز مكانتك المهنية باستخدام المهارات الرقمية والشخصية الأساسية.
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
 
-    <!-- CEO Profile Section -->
     <section id="ceo">
         <div class="container">
             <h2>تعرف على مؤسسنا</h2>
-            
             <div class="ceo-profile">
-                <!-- CEO Image -->
                 <div class="ceo-image">
-                    <img src="images/CEO-Founder.png" alt="يوسف عيد - الرئيس التنفيذي والمؤسس" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=687&auto=format&fit=crop'">
+                    <img src="images/CEO-Founder.png" alt="يوسف عيد" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=687&auto=format&fit=crop'">
                 </div>
-
-                <!-- CEO Info -->
                 <div class="ceo-content">
                     <div class="ceo-header">
                         <div class="ceo-role">الرئيس التنفيذي والمؤسس</div>
                         <h1 style="font-size: 2.5rem; color: var(--primary-color);">يوسف عيد</h1>
                         <p style="font-size: 1.1rem; color: #666;">الإسكندرية، مصر</p>
                     </div>
-
                     <div class="ceo-details-grid">
-                        <!-- Education -->
                         <div class="ceo-section">
                             <h3><i class="fas fa-university" style="margin-left: 10px;"></i> التعليم</h3>
                             <ul class="ceo-list">
-                                <li><strong>بكالوريوس تكنولوجيا المعلومات</strong><br>جامعة برج العرب التكنولوجية (2025 - حتى الآن)</li>
-                                <li><strong>دبلوم الشبكات والأمن السيبراني</strong><br>مدرسة وي للتكنولوجيا التطبيقية، الإسكندرية (2022-2025)</li>
+                                <li><strong>بكالوريوس تكنولوجيا المعلومات</strong><br>جامعة برج العرب التكنولوجية</li>
                             </ul>
                         </div>
-
-                        <!-- Experience -->
                         <div class="ceo-section">
                             <h3><i class="fas fa-briefcase" style="margin-left: 10px;"></i> الخبرات</h3>
                             <ul class="ceo-list">
-                                <li><strong>مدرب أمن سيبراني</strong> - GDG-Hurghada (يناير 2025 – حتى الآن)</li>
-                                <li><strong>مدرب</strong> - أكاديمية سيسكو للشبكات (فبراير 2025 - حتى الآن)</li>
-                                <li><strong>مدرب أمن سيبراني</strong> - GDG-SVU (نوفمبر 2024 – مايو 2025)</li>
-                                <li><strong>عضو موارد بشرية</strong> - YLY-وزارة الشباب (أغسطس 2024 – أغسطس 2025)</li>
-                                <li><strong>متدرب اختبار اختراق</strong> - CyberX World (أغسطس 2024 – نوفمبر 2024)</li>
+                                <li><strong>مدرب أمن سيبراني</strong> - GDG-Hurghada</li>
                             </ul>
                         </div>
-
-                        <!-- Certifications -->
                         <div class="ceo-section" style="grid-column: 1 / -1;">
                             <h3><i class="fas fa-certificate" style="margin-left: 10px;"></i> الشهادات المهنية</h3>
                             <div class="tag-container">
-                                <span class="tag">CCEP (Red Team Leaders)</span>
-                                <span class="tag">CCNP ENCOR</span>
-                                <span class="tag">CCNA</span>
-                                <span class="tag">CyberOps Associate</span>
-                                <span class="tag">Network Security</span>
-                                <span class="tag">DevNet Associate</span>
-                                <span class="tag">ISC2 CC</span>
-                                <span class="tag">MCSA</span>
-                                <span class="tag">eJPTv1</span>
-                                <span class="tag">Linux+</span>
-                                <span class="tag">Linux Essentials</span>
+                                <span class="tag">CCNP ENCOR</span><span class="tag">CCNA</span><span class="tag">CyberOps</span>
                             </div>
                         </div>
                     </div>
-                    
                     <div style="margin-top: 30px;">
                         <a href="https://www.linkedin.com/in/youssef-eid-profile" target="_blank" class="btn btn-primary"><i class="fab fa-linkedin" style="margin-left: 8px;"></i> تواصل على لينكد إن</a>
-                        <a href="mailto:youssef-eid@outlook.com" class="btn btn-outline"><i class="fas fa-envelope" style="margin-left: 8px;"></i> راسل المؤسس</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer / Contact -->
     <footer id="contact">
         <div class="container">
             <div class="footer-grid">
-                <!-- Branding -->
                 <div class="footer-col">
                     <div class="logo" style="margin-bottom: 20px;">
                         <img src="images/blogo.png" alt="Cyberixa White Logo" style="height: 40px; filter: invert(1);">
                     </div>
-                    <p>Cyberixa هي شركة تدريب وتكنولوجيا مبتكرة مقرها الإسكندرية، مصر، وتهدف إلى سد الفجوة بين التعليم الأكاديمي ومتطلبات الصناعة.</p>
+                    <p>Syberixa هي شركة تدريب وتكنولوجيا مبتكرة مقرها الإسكندرية، مصر.</p>
                 </div>
-
-                <!-- Contact Info -->
                 <div class="footer-col">
                     <h4>تواصل معنا</h4>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <a href="mailto:cyberixa.eg@gmail.com">cyberixa.eg@gmail.com</a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>الإسكندرية، مصر</span>
-                    </div>
+                    <div class="contact-item"><i class="fas fa-envelope"></i><a href="mailto:cyberixa.eg@gmail.com">cyberixa.eg@gmail.com</a></div>
+                    <div class="contact-item"><i class="fas fa-map-marker-alt"></i><span>الإسكندرية، مصر</span></div>
                 </div>
-
-                <!-- Quick Links -->
                 <div class="footer-col">
                     <h4>روابط سريعة</h4>
                     <ul>
                         <li><a href="#about">عن الشركة</a></li>
                         <li><a href="#tracks">الدورات</a></li>
-                        <li><a href="#solutions">الحلول</a></li>
-                        <li><a href="https://forms.gle/Qw2JcrxDw6DB1CRv6">وظائف / انضم للفريق</a></li>
+                        <!-- Verify Link Added Here -->
+                        <li><a href="verify-ar.html">التحقق من الشهادة</a></li>
+                        <li><a href="https://forms.gle/Qw2JcrxDw6DB1CRv6">وظائف</a></li>
                     </ul>
                 </div>
-
-                <!-- Social -->
                 <div class="footer-col">
                     <h4>تابعنا</h4>
                     <div class="social-icons">
-                        <a href="https://www.facebook.com/cyberixa.eg" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.linkedin.com/company/cyberixa-eg" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="mailto:cyberixa.eg@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                        <a href="https://www.facebook.com/cyberixa.eg" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.linkedin.com/company/cyberixa-eg" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>
-
-            <div class="copyright">
-                &copy; 2026 Cyberixa. جميع الحقوق محفوظة. | تمكين الجيل الرقمي
-            </div>
+            <div class="copyright">&copy; 2026 Cyberixa. جميع الحقوق محفوظة.</div>
         </div>
     </footer>
 
     <script>
-        // --- Mobile Menu Script ---
         function toggleMenu() {
             const nav = document.querySelector('.nav-links');
             nav.classList.toggle('active');
         }
-
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
-                const nav = document.querySelector('.nav-links');
-                nav.classList.remove('active');
+                document.querySelector('.nav-links').classList.remove('active');
             });
         });
     </script>
