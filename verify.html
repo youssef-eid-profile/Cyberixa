@@ -38,6 +38,14 @@
         .logo img {
             height: 50px;
         }
+        .logo-fallback {
+            display: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: 1px;
+        }
         .status-icon {
             font-size: 4rem;
             margin-bottom: 20px;
@@ -88,6 +96,10 @@
             border-radius: 5px;
             font-weight: 600;
             transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            width: 100%; /* Full width for verify button */
+            justify-content: center;
         }
         .btn-support:hover { background-color: var(--secondary-color); }
         .report-link {
@@ -97,13 +109,35 @@
             color: #888;
             text-decoration: underline;
         }
+
+        /* Input Styles for Manual Verification */
+        .input-group {
+            margin-top: 20px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 10px;
+            transition: border-color 0.3s;
+        }
+        .input-field:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
     </style>
 </head>
 <body>
 
     <div class="card">
+        <!-- Logo Section -->
         <div class="logo">
-            <img src="images/logo.png" alt="Cyberixa" onerror="this.style.display='none'">
+            <!-- Displays Image. If missing, displays Text Fallback -->
+            <img src="images/logo.png" alt="Cyberixa Logo" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
+            <div id="logo-fallback" class="logo-fallback">CYBERIXA</div>
         </div>
 
         <!-- Loading State -->
@@ -136,11 +170,18 @@
             </a>
         </div>
 
-        <!-- No Input State -->
+        <!-- No Input / Search State -->
         <div id="no-input" class="hidden">
-            <i class="fas fa-qrcode" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+            <i class="fas fa-certificate" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 20px;"></i>
             <h1>Verify Certificate</h1>
-            <p>Please scan the QR code or use the link provided on your certificate.</p>
+            <p>Enter the Certificate ID below to verify its authenticity.</p>
+            
+            <div class="input-group">
+                <input type="text" id="input-cert-id" class="input-field" placeholder="e.g., CYB-2026-0985">
+                <button onclick="handleManualVerify()" class="btn-support">
+                    <i class="fas fa-search"></i> Verify
+                </button>
+            </div>
         </div>
     </div>
 
@@ -148,14 +189,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
-        // CONFIGURATION
-        // Replace this with your actual deployed API URL (e.g., from Vercel)
-        // If testing locally with Vercel CLI, it might be http://localhost:3000/api/verify
         const API_ENDPOINT = '/api/verify'; 
 
         const params = new URLSearchParams(window.location.search);
-        const certId = params.get('id'); // We now look for ?id=UNIQUE_ID
-        const hasParams = window.location.search.length > 0;
+        const urlId = params.get('id'); // Check if ID is in URL
 
         // Elements
         const loadingEl = document.getElementById('loading');
@@ -163,26 +200,56 @@
         const invalidEl = document.getElementById('invalid-cert');
         const noInputEl = document.getElementById('no-input');
 
-        async function verifyCertificate() {
-            if (!certId) {
-                loadingEl.style.display = 'none';
-                if (hasParams) {
-                    invalidEl.classList.remove('hidden');
-                } else {
-                    noInputEl.classList.remove('hidden');
-                }
+        // 1. On Load: Check if we have an ID to verify
+        if (urlId) {
+            // If ID is in URL, verify immediately
+            verifyCertificate(urlId);
+        } else {
+            // If no ID, show the search input
+            loadingEl.style.display = 'none';
+            noInputEl.classList.remove('hidden');
+        }
+
+        // 2. Function to handle manual verification from input
+        function handleManualVerify() {
+            const inputId = document.getElementById('input-cert-id').value.trim();
+            if (!inputId) {
+                alert("Please enter a Certificate ID");
                 return;
             }
+            
+            // Optional: Update URL so user can refresh
+            window.history.replaceState({}, '', `verify.html?id=${inputId}`);
+            
+            // Show loading and verify
+            noInputEl.classList.add('hidden');
+            loadingEl.style.display = 'block';
+            
+            verifyCertificate(inputId);
+        }
+
+        // Allow pressing "Enter" in the input box
+        document.getElementById('input-cert-id').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                handleManualVerify();
+            }
+        });
+
+        // 3. Main Verification Logic
+        async function verifyCertificate(idToVerify) {
+            // Reset states
+            validEl.classList.add('hidden');
+            invalidEl.classList.add('hidden');
+            loadingEl.style.display = 'block';
 
             try {
-                // Call your Backend API
-                const response = await fetch(`${API_ENDPOINT}?id=${encodeURIComponent(certId)}`);
+                const response = await fetch(`${API_ENDPOINT}?id=${encodeURIComponent(idToVerify)}`);
                 const result = await response.json();
 
                 loadingEl.style.display = 'none';
 
                 if (response.ok && result.valid) {
-                    // SUCCESS: Update UI with real data from DB
+                    // SUCCESS
                     document.getElementById('display-name').innerText = result.name;
                     document.getElementById('display-course').innerText = result.course;
                     
@@ -190,16 +257,15 @@
                         document.getElementById('display-date').innerText = `Issued: ${result.date} | Cyberixa`;
                     }
 
-                    // Setup Report Link
                     const subject = encodeURIComponent("Issue with Certificate: " + result.name);
-                    const body = encodeURIComponent(`ID: ${certId}\nName: ${result.name}\nCourse: ${result.course}`);
+                    const body = encodeURIComponent(`ID: ${idToVerify}\nName: ${result.name}\nCourse: ${result.course}`);
                     document.getElementById('report-link').href = `mailto:cyberixa.eg@gmail.com?subject=${subject}&body=${body}`;
 
                     validEl.classList.remove('hidden');
                 } else {
-                    // FAILED: Not in DB
+                    // FAILED
                     invalidEl.classList.remove('hidden');
-                    setupSupportEmail();
+                    setupSupportEmail(idToVerify);
                 }
 
             } catch (error) {
@@ -207,18 +273,15 @@
                 loadingEl.style.display = 'none';
                 invalidEl.classList.remove('hidden');
                 document.querySelector('#invalid-cert p').innerText = "Connection error. Please try again later.";
-                setupSupportEmail();
+                setupSupportEmail(idToVerify);
             }
         }
 
-        function setupSupportEmail() {
+        function setupSupportEmail(id) {
             const subject = encodeURIComponent("Inquiry: Invalid Certificate");
-            const body = encodeURIComponent(`I tried to verify certificate ID: ${certId}`);
+            const body = encodeURIComponent(`I tried to verify certificate ID: ${id}`);
             document.getElementById('support-btn').href = `mailto:cyberixa.eg@gmail.com?subject=${subject}&body=${body}`;
         }
-
-        // Run
-        verifyCertificate();
     </script>
 </body>
 </html>
