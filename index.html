@@ -236,6 +236,14 @@
             .nav-links.active { display: flex; }
             .mobile-menu-btn { display: block; }
             #hero h1 { font-size: 2rem; }
+            
+            /* FIX: Stack buttons vertically on mobile */
+            .btn {
+                display: block;
+                width: 100%;
+                margin: 10px 0 !important; /* Adds space top/bottom and resets sides */
+            }
+
             .ceo-details-grid { grid-template-columns: 1fr; }
             .ceo-profile { flex-direction: column; }
             .ceo-image { min-height: 300px; }
@@ -412,7 +420,6 @@
                                 <li><strong>Instructor</strong> - Cisco Networking Academy (Feb 2025 - Present)</li>
                             </ul>
                         </div>
-                        <!-- Certifications Section Removed -->
                     </div>
                     <div style="margin-top: 30px;">
                         <a href="https://www.linkedin.com/in/youssef-eid-profile" target="_blank" class="btn btn-primary"><i class="fab fa-linkedin"></i> Connect on LinkedIn</a>
