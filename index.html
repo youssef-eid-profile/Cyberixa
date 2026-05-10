@@ -198,10 +198,18 @@
         .ceo-content { flex: 2 1 500px; padding: 50px; }
         .ceo-header { margin-bottom: 30px; border-bottom: 1px solid var(--accent-gray); padding-bottom: 20px; }
         .ceo-role { color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
-        .ceo-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .ceo-section h3 { font-size: 1.1rem; color: var(--dark-color); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-        .ceo-list li { margin-bottom: 10px; font-size: 0.95rem; position: relative; padding-left: 20px; }
-        .ceo-list li::before { content: '•'; color: var(--primary-color); position: absolute; left: 0; font-weight: bold; }
+        
+        /* New Bio Style */
+        .ceo-bio {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+        .ceo-bio p {
+            margin-bottom: 20px;
+        }
 
         /* --- Footer --- */
         footer { background-color: var(--dark-color); color: var(--white); padding: 60px 0 20px; }
@@ -241,10 +249,9 @@
             .btn {
                 display: block;
                 width: 100%;
-                margin: 10px 0 !important; /* Adds space top/bottom and resets sides */
+                margin: 10px 0 !important;
             }
 
-            .ceo-details-grid { grid-template-columns: 1fr; }
             .ceo-profile { flex-direction: column; }
             .ceo-image { min-height: 300px; }
         }
@@ -405,22 +412,12 @@
                         <h1 style="font-size: 2.5rem; color: var(--primary-color);">Youssef Eid</h1>
                         <p style="font-size: 1.1rem; color: #666;">Alexandria, Egypt</p>
                     </div>
-                    <div class="ceo-details-grid">
-                        <div class="ceo-section">
-                            <h3><i class="fas fa-university"></i> Education</h3>
-                            <ul class="ceo-list">
-                                <li><strong>Information Technology Bachelor</strong><br>Borg Al Arab Technological University (2025-present)</li>
-                                <li><strong>Networks & Cybersecurity Diploma</strong><br>WE Applied Technology School (2022-2025)</li>
-                            </ul>
-                        </div>
-                        <div class="ceo-section">
-                            <h3><i class="fas fa-briefcase"></i> Experience</h3>
-                            <ul class="ceo-list">
-                                <li><strong>Cybersecurity Trainer</strong> - GDG-Hurghada (Jan 2025 – Present)</li>
-                                <li><strong>Instructor</strong> - Cisco Networking Academy (Feb 2025 - Present)</li>
-                            </ul>
-                        </div>
+                    
+                    <div class="ceo-bio">
+                        <p>Eid is the Founder and CEO of Cyberixa, a technical platform dedicated to advancing education in the fields of Information Technology and cybersecurity. Currently pursuing a Bachelor’s degree in Information Technology at Borg El Arab Technological University (BATU), he has built a strong technical foundation that began with a diploma in Networks and Cybersecurity from the WE Applied Technology School. His professional expertise is validated by a comprehensive suite of international certifications, including CCNA, CCNP Enterprise, and CyberOps Associate from the Cisco Networking Academy.</p>
+                        <p>In his current professional role, Eid serves as an IT Specialist at Ocean Foods For Food Industries, where he manages complex network infrastructures. Beyond his corporate responsibilities, he is a dedicated educator, serving as a Certified Cisco Networking Academy Instructor and a technical trainer for Google Developer Groups (GDG) in both Hurghada and SVU. His diverse experience also includes practical work in defensive security as a Penetration Tester Intern and leadership roles in community organizations like the Ministry of Youth and Sports (YLY). Through Cyberixa, Eid integrates his deep knowledge of server administration and network engineering to provide high-level training and digital solutions.</p>
                     </div>
+
                     <div style="margin-top: 30px;">
                         <a href="https://www.linkedin.com/in/youssef-eid-profile" target="_blank" class="btn btn-primary"><i class="fab fa-linkedin"></i> Connect on LinkedIn</a>
                         <a href="mailto:youssef-eid@outlook.com" class="btn btn-outline" style="margin-left: 10px;"><i class="fas fa-envelope"></i> Email Founder</a>

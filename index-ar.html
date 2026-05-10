@@ -84,10 +84,18 @@
         .ceo-content { flex: 2 1 500px; padding: 50px; }
         .ceo-header { margin-bottom: 30px; border-bottom: 1px solid var(--accent-gray); padding-bottom: 20px; }
         .ceo-role { color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
-        .ceo-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .ceo-section h3 { font-size: 1.1rem; color: var(--dark-color); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-        .ceo-list li { margin-bottom: 10px; font-size: 0.95rem; position: relative; padding-right: 20px; padding-left: 0; }
-        .ceo-list li::before { content: '•'; color: var(--primary-color); position: absolute; right: 0; font-weight: bold; }
+        
+        /* New Bio Style Arabic */
+        .ceo-bio {
+            font-size: 1rem;
+            line-height: 2; /* Larger line height for Arabic */
+            color: #555;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+        .ceo-bio p {
+            margin-bottom: 20px;
+        }
 
         footer { background-color: var(--dark-color); color: var(--white); padding: 60px 0 20px; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px; }
@@ -111,10 +119,9 @@
             .btn {
                 display: block;
                 width: 100%;
-                margin: 10px 0 !important; /* Adds space top/bottom and resets sides */
+                margin: 10px 0 !important;
             }
 
-            .ceo-details-grid { grid-template-columns: 1fr; }
             .ceo-profile { flex-direction: column; }
             .ceo-image { min-height: 300px; }
         }
@@ -231,22 +238,12 @@
                         <h1 style="font-size: 2.5rem; color: var(--primary-color);">يوسف عيد</h1>
                         <p style="font-size: 1.1rem; color: #666;">الإسكندرية، مصر</p>
                     </div>
-                    <div class="ceo-details-grid">
-                        <div class="ceo-section">
-                            <h3><i class="fas fa-university" style="margin-left: 10px;"></i> التعليم</h3>
-                            <ul class="ceo-list">
-                                <li><strong>بكالوريوس تكنولوجيا المعلومات</strong><br>جامعة برج العرب التكنولوجية (2025 - حتى الآن)</li>
-                                <li><strong>دبلوم الشبكات والأمن السيبراني</strong><br>مدرسة WE للتكنولوجيا التطبيقية، الإسكندرية (2022-2025)</li>
-                            </ul>
-                        </div>
-                        <div class="ceo-section">
-                            <h3><i class="fas fa-briefcase" style="margin-left: 10px;"></i> الخبرات</h3>
-                            <ul class="ceo-list">
-                                <li><strong>مدرب أمن سيبراني</strong> - GDG-Hurghada (يناير 2025 – حتى الآن)</li>
-                                <li><strong>مدرب</strong> - أكاديمية سيسكو للشبكات (فبراير 2025 - حتى الآن)</li>
-                            </ul>
-                        </div>
+
+                    <div class="ceo-bio">
+                        <p>يشغل عيد منصب المؤسس والرئيس التنفيذي لـ Cyberixa، وهي منصة تقنية مخصصة للنهوض بالتعليم في مجالات تكنولوجيا المعلومات والأمن السيبراني. وبالتوازي مع دراسته الحالية للحصول على درجة البكالوريوس في تكنولوجيا المعلومات من جامعة برج العرب التكنولوجية (BATU)، فقد نجح في بناء أساس تقني متين بدأه بالحصول على دبلوم الشبكات والأمن السيبراني من مدرسة WE للتكنولوجيا التطبيقية. وتتأكد خبرته المهنية من خلال مجموعة شاملة من الشهادات الدولية، بما في ذلك CCNA وCCNP Enterprise وCyberOps Associate من أكاديمية سيسكو للشبكات.</p>
+                        <p>وفي إطار دوره المهني الحالي، يعمل عيد كأخصائي تكنولوجيا معلومات (IT Specialist) في شركة أوشن فودز للصناعات الغذائية، حيث يتولى إدارة البنى التحتية المعقدة للشبكات. وإلى جانب مسؤولياته المؤسسية، فإنه يعتبر مدرباً تقنياً شغوفاً، حيث يعمل كـ مدرب معتمد لدى أكاديمية سيسكو للشبكات ومحاضر تقني في مجموعات جوجل للمطورين (GDG) في كل من الغردقة وجامعة جنوب الوادي. كما تشمل خبراته المتنوعة عملاً تطبيقياً في الأمن الدفاعي كمُختبر اختراق متدرب في Cyberx World، بالإضافة إلى أدوار قيادية في منظمات مجتمعية مثل وزارة الشباب والرياضة (YLY). ومن خلال Cyberixa، يدمج عيد معرفته العميقة في إدارة الخوادم وهندسة الشبكات لتقديم تدريب وحلول رقمية رفيعة المستوى.</p>
                     </div>
+
                     <div style="margin-top: 30px;">
                         <a href="https://www.linkedin.com/in/youssef-eid-profile" target="_blank" class="btn btn-primary"><i class="fab fa-linkedin" style="margin-left: 8px;"></i> تواصل على لينكد إن</a>
                         <a href="mailto:youssef-eid@outlook.com" class="btn btn-outline" style="margin-right: 10px;"><i class="fas fa-envelope" style="margin-left: 8px;"></i> راسل المؤسس</a>
