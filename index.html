@@ -192,24 +192,47 @@
 
         /* --- CEO Section --- */
         #ceo { padding: 100px 0; background-color: #f0f4f8; }
-        .ceo-profile { background: var(--white); border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-wrap: wrap; }
-        .ceo-image { flex: 1 1 350px; background-color: #e0e0e0; min-height: 400px; position: relative; }
-        .ceo-image img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-        .ceo-content { flex: 2 1 500px; padding: 50px; }
+        .ceo-profile { 
+            background: var(--white); 
+            border-radius: 20px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1); 
+            overflow: hidden; 
+            display: flex; 
+            flex-wrap: wrap; 
+            align-items: stretch; /* Ensure columns match height */
+        }
+        .ceo-image { 
+            flex: 0 0 350px; /* Fixed width for better photo ratio */
+            background-color: #e0e0e0; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        .ceo-image img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            object-position: top center; /* Focus on face */
+            transition: transform 0.5s ease;
+        }
+        .ceo-profile:hover .ceo-image img {
+            transform: scale(1.03); /* Subtle zoom on hover */
+        }
+        .ceo-content { 
+            flex: 1; /* Takes remaining space */
+            min-width: 300px; /* Prevent squishing */
+            padding: 50px; 
+        }
         .ceo-header { margin-bottom: 30px; border-bottom: 1px solid var(--accent-gray); padding-bottom: 20px; }
         .ceo-role { color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
         
-        /* New Bio Style */
+        /* Bio Style */
         .ceo-bio {
             font-size: 1rem;
             line-height: 1.8;
             color: #555;
             text-align: justify;
-            margin-bottom: 20px;
         }
-        .ceo-bio p {
-            margin-bottom: 20px;
-        }
+        .ceo-bio p { margin-bottom: 20px; }
 
         /* --- Footer --- */
         footer { background-color: var(--dark-color); color: var(--white); padding: 60px 0 20px; }
@@ -251,9 +274,14 @@
                 width: 100%;
                 margin: 10px 0 !important;
             }
-
+            
+            /* CEO Responsive */
             .ceo-profile { flex-direction: column; }
-            .ceo-image { min-height: 300px; }
+            .ceo-image { 
+                flex: none; /* Reset flex */
+                width: 100%; 
+                height: 350px; /* Fixed height on mobile */
+            }
         }
     </style>
 </head>
@@ -404,7 +432,7 @@
             <h2>Meet Our Founder</h2>
             <div class="ceo-profile">
                 <div class="ceo-image">
-                    <img src="images/CEO-Founder-2.png" alt="Youssef Eid - CEO & Founder" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=687&auto=format&fit=crop'">
+                    <img src="images/CEO-Founder.png" alt="Youssef Eid - CEO & Founder" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=687&auto=format&fit=crop'">
                 </div>
                 <div class="ceo-content">
                     <div class="ceo-header">

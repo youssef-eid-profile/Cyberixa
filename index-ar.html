@@ -78,24 +78,48 @@
         .track-desc { margin-top: 20px; font-style: italic; color: #555; background: #f4f7f6; padding: 15px; border-radius: 5px; }
 
         #ceo { padding: 100px 0; background-color: #f0f4f8; }
-        .ceo-profile { background: var(--white); border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-wrap: wrap; }
-        .ceo-image { flex: 1 1 350px; background-color: #e0e0e0; min-height: 400px; position: relative; }
-        .ceo-image img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-        .ceo-content { flex: 2 1 500px; padding: 50px; }
+        .ceo-profile { 
+            background: var(--white); 
+            border-radius: 20px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1); 
+            overflow: hidden; 
+            display: flex; 
+            flex-wrap: wrap; 
+            align-items: stretch;
+        }
+        /* FIX: Image fixed width for perfect size */
+        .ceo-image { 
+            flex: 0 0 350px; 
+            background-color: #e0e0e0; 
+            position: relative; 
+            overflow: hidden;
+        }
+        .ceo-image img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            object-position: top center; 
+            transition: transform 0.5s ease;
+        }
+        .ceo-profile:hover .ceo-image img {
+            transform: scale(1.03);
+        }
+        .ceo-content { 
+            flex: 1; 
+            min-width: 300px;
+            padding: 50px; 
+        }
         .ceo-header { margin-bottom: 30px; border-bottom: 1px solid var(--accent-gray); padding-bottom: 20px; }
         .ceo-role { color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
         
-        /* New Bio Style Arabic */
+        /* Bio Arabic */
         .ceo-bio {
             font-size: 1rem;
-            line-height: 2; /* Larger line height for Arabic */
+            line-height: 2;
             color: #555;
             text-align: justify;
-            margin-bottom: 20px;
         }
-        .ceo-bio p {
-            margin-bottom: 20px;
-        }
+        .ceo-bio p { margin-bottom: 20px; }
 
         footer { background-color: var(--dark-color); color: var(--white); padding: 60px 0 20px; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px; }
@@ -115,15 +139,16 @@
             .mobile-menu-btn { display: block; }
             #hero h1 { font-size: 2rem; }
             
-            /* FIX: Stack buttons vertically on mobile */
-            .btn {
-                display: block;
-                width: 100%;
-                margin: 10px 0 !important;
-            }
+            /* Buttons */
+            .btn { display: block; width: 100%; margin: 10px 0 !important; }
 
+            /* CEO Responsive */
             .ceo-profile { flex-direction: column; }
-            .ceo-image { min-height: 300px; }
+            .ceo-image { 
+                flex: none;
+                width: 100%; 
+                height: 350px; 
+            }
         }
     </style>
 </head>
@@ -230,7 +255,7 @@
             <h2>تعرف على مؤسسنا</h2>
             <div class="ceo-profile">
                 <div class="ceo-image">
-                    <img src="images/CEO-Founder-2.png" alt="يوسف عيد" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=687&auto=format&fit=crop'">
+                    <img src="images/CEO-Founder.png" alt="يوسف عيد" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=687&auto=format&fit=crop'">
                 </div>
                 <div class="ceo-content">
                     <div class="ceo-header">
