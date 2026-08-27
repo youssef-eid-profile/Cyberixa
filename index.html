@@ -180,6 +180,52 @@
         .solution-card:hover { box-shadow: 0 10px 30px rgba(0, 78, 146, 0.15); border-color: var(--secondary-color); }
         .solution-icon { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 20px; }
 
+        /* --- Partners Section --- */
+        #partners {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        .partners-subtitle {
+            text-align: center;
+            color: #777;
+            font-size: 1.05rem;
+            margin-top: -2rem;
+            margin-bottom: 3rem;
+        }
+        .partners-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+        .partner-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 40px;
+            background: var(--white);
+            border-radius: 12px;
+            border: 1px solid var(--accent-gray);
+            transition: var(--transition);
+        }
+        .partner-item:hover {
+            border-color: var(--secondary-color);
+            box-shadow: 0 8px 30px rgba(0, 78, 146, 0.1);
+            transform: translateY(-4px);
+        }
+        .partner-item img {
+            height: 60px;
+            width: auto;
+            max-width: 220px;
+            object-fit: contain;
+            filter: grayscale(100%) opacity(0.6);
+            transition: var(--transition);
+        }
+        .partner-item:hover img {
+            filter: grayscale(0%) opacity(1);
+        }
+
         /* --- Tracks Section --- */
         #tracks { padding: 80px 0; }
         .track-container { display: flex; flex-direction: column; gap: 40px; }
@@ -199,10 +245,10 @@
             overflow: hidden; 
             display: flex; 
             flex-wrap: wrap; 
-            align-items: stretch; /* Ensure columns match height */
+            align-items: stretch;
         }
         .ceo-image { 
-            flex: 0 0 350px; /* Fixed width for better photo ratio */
+            flex: 0 0 350px;
             background-color: #e0e0e0; 
             position: relative; 
             overflow: hidden; 
@@ -211,21 +257,20 @@
             width: 100%; 
             height: 100%; 
             object-fit: cover; 
-            object-position: top center; /* Focus on face */
+            object-position: top center;
             transition: transform 0.5s ease;
         }
         .ceo-profile:hover .ceo-image img {
-            transform: scale(1.03); /* Subtle zoom on hover */
+            transform: scale(1.03);
         }
         .ceo-content { 
-            flex: 1; /* Takes remaining space */
-            min-width: 300px; /* Prevent squishing */
+            flex: 1;
+            min-width: 300px;
             padding: 50px; 
         }
         .ceo-header { margin-bottom: 30px; border-bottom: 1px solid var(--accent-gray); padding-bottom: 20px; }
         .ceo-role { color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
         
-        /* Bio Style */
         .ceo-bio {
             font-size: 1rem;
             line-height: 1.8;
@@ -268,20 +313,23 @@
             .mobile-menu-btn { display: block; }
             #hero h1 { font-size: 2rem; }
             
-            /* FIX: Stack buttons vertically on mobile */
             .btn {
                 display: block;
                 width: 100%;
                 margin: 10px 0 !important;
             }
             
-            /* CEO Responsive */
             .ceo-profile { flex-direction: column; }
             .ceo-image { 
-                flex: none; /* Reset flex */
+                flex: none;
                 width: 100%; 
-                height: 350px; /* Fixed height on mobile */
+                height: 350px; 
             }
+
+            /* Partners responsive */
+            .partners-grid { gap: 30px; }
+            .partner-item { padding: 20px 30px; }
+            .partner-item img { height: 45px; max-width: 180px; }
         }
     </style>
 </head>
@@ -383,6 +431,19 @@
         </div>
     </section>
 
+    <!-- Partners Section -->
+    <section id="partners">
+        <div class="container">
+            <h2>Our Partners</h2>
+            <p class="partners-subtitle">Proud to collaborate with leading organizations in the tech ecosystem.</p>
+            <div class="partners-grid">
+                <div class="partner-item">
+                    <img src="images/TechneLogo.webp" alt="Techne Summit">
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Tracks Section -->
     <section id="tracks">
         <div class="container">
@@ -442,7 +503,7 @@
                     </div>
                     
                     <div class="ceo-bio">
-                        <p>Eid is the Founder and CEO of Cyberixa, a technical platform dedicated to advancing education in the fields of Information Technology and cybersecurity. Currently pursuing a Bachelor’s degree in Information Technology at Borg El Arab Technological University (BATU), he has built a strong technical foundation that began with a diploma in Networks and Cybersecurity from the WE Applied Technology School. His professional expertise is validated by a comprehensive suite of international certifications, including CCNA, CCNP Enterprise, and CyberOps Associate from the Cisco Networking Academy.</p>
+                        <p>Eid is the Founder and CEO of Cyberixa, a technical platform dedicated to advancing education in the fields of Information Technology and cybersecurity. Currently pursuing a Bachelor's degree in Information Technology at Borg El Arab Technological University (BATU), he has built a strong technical foundation that began with a diploma in Networks and Cybersecurity from the WE Applied Technology School. His professional expertise is validated by a comprehensive suite of international certifications, including CCNA, CCNP Enterprise, and CyberOps Associate from the Cisco Networking Academy.</p>
                         <p>In his current professional role, Eid serves as an IT Specialist at Ocean Foods For Food Industries, where he manages complex network infrastructures. Beyond his corporate responsibilities, he is a dedicated educator, serving as a Certified Cisco Networking Academy Instructor and a technical trainer for Google Developer Groups (GDG) in both Hurghada and SVU. His diverse experience also includes practical work in defensive security as a Penetration Tester Intern and leadership roles in community organizations like the Ministry of Youth and Sports (YLY). Through Cyberixa, Eid integrates his deep knowledge of server administration and network engineering to provide high-level training and digital solutions.</p>
                     </div>
 

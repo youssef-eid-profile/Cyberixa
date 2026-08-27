@@ -68,6 +68,52 @@
         .solution-card:hover { box-shadow: 0 10px 30px rgba(0, 78, 146, 0.15); border-color: var(--secondary-color); }
         .solution-icon { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 20px; }
 
+        /* --- Partners Section --- */
+        #partners {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        .partners-subtitle {
+            text-align: center;
+            color: #777;
+            font-size: 1.05rem;
+            margin-top: -2rem;
+            margin-bottom: 3rem;
+        }
+        .partners-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+        .partner-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 40px;
+            background: var(--white);
+            border-radius: 12px;
+            border: 1px solid var(--accent-gray);
+            transition: var(--transition);
+        }
+        .partner-item:hover {
+            border-color: var(--secondary-color);
+            box-shadow: 0 8px 30px rgba(0, 78, 146, 0.1);
+            transform: translateY(-4px);
+        }
+        .partner-item img {
+            height: 60px;
+            width: auto;
+            max-width: 220px;
+            object-fit: contain;
+            filter: grayscale(100%) opacity(0.6);
+            transition: var(--transition);
+        }
+        .partner-item:hover img {
+            filter: grayscale(0%) opacity(1);
+        }
+
         #tracks { padding: 80px 0; }
         .track-container { display: flex; flex-direction: column; gap: 40px; }
         .track-card { background: var(--white); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; }
@@ -87,7 +133,6 @@
             flex-wrap: wrap; 
             align-items: stretch;
         }
-        /* FIX: Image fixed width for perfect size */
         .ceo-image { 
             flex: 0 0 350px; 
             background-color: #e0e0e0; 
@@ -112,7 +157,6 @@
         .ceo-header { margin-bottom: 30px; border-bottom: 1px solid var(--accent-gray); padding-bottom: 20px; }
         .ceo-role { color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
         
-        /* Bio Arabic */
         .ceo-bio {
             font-size: 1rem;
             line-height: 2;
@@ -139,16 +183,19 @@
             .mobile-menu-btn { display: block; }
             #hero h1 { font-size: 2rem; }
             
-            /* Buttons */
             .btn { display: block; width: 100%; margin: 10px 0 !important; }
 
-            /* CEO Responsive */
             .ceo-profile { flex-direction: column; }
             .ceo-image { 
                 flex: none;
                 width: 100%; 
                 height: 350px; 
             }
+
+            /* Partners responsive */
+            .partners-grid { gap: 30px; }
+            .partner-item { padding: 20px 30px; }
+            .partner-item img { height: 45px; max-width: 180px; }
         }
     </style>
 </head>
@@ -224,6 +271,19 @@
                     <h3>التعليم التقني</h3>
                     <p>مسارات تعلم مجانية ومعتمدة في الأمن السيبراني والشبكات.</p>
                 </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners">
+        <div class="container">
+            <h2>شركاؤنا</h2>
+            <p class="partners-subtitle">نفخر بالتعاون مع مؤسسات رائدة في النظام التقني.</p>
+            <div class="partners-grid">
+                <div class="partner-item">
+                    <img src="images/TechneLogo.webp" alt="تكني سوميت">
+                </div>
             </div>
         </div>
     </section>
